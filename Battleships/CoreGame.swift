@@ -30,12 +30,18 @@ enum Orientation {
     case Vertical
 }
 
+enum Player {
+    case AI
+    case P1
+}
+
 struct Position {
     var x = 0
     var y = 0
     var occupany = Piece.Blank
     var destroyed = false
     var orientation = Orientation.Horizontal
+    var player = Player.P1
 }
 
 struct Board {
@@ -69,11 +75,11 @@ struct Board {
             for n in 0..<length {
                 if(ship.orientation == Orientation.Horizontal) {
                     print(ship.occupany)
-                    board[index + n] = Position(x: ship.x+n, y: ship.y, occupany: ship.occupany)
+                    board[index + n] = Position(x: ship.x+n, y: ship.y, occupany: ship.occupany, player: ship.player)
                 }
                 
                 if(ship.orientation == Orientation.Vertical) {
-                    board[index + (n*10)] = Position(x: ship.x, y: ship.y+n, occupany: ship.occupany)
+                    board[index + (n*10)] = Position(x: ship.x, y: ship.y+n, occupany: ship.occupany, player: ship.player)
                 }
             }
         }
@@ -96,7 +102,7 @@ struct Board {
         let shipCanBePlacedInThisLocation = orientation == Orientation.Horizontal && avaliablePositions[position+1].x == avaliablePositions[position].x+1
         
         if(shipCanBePlacedInThisLocation){
-            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship))
+            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship, player: Player.AI))
         } else {
             board = placeShipRandomly(board: board, ship: ship)
         }
@@ -115,11 +121,21 @@ struct Board {
         return board
     }
     
-    func isGameWon(board: Array<Position>) -> Bool {
+    private func getPlayersDestroyedShips(board: Array<Position>, player: Player) -> Array<Position> {
         return board.filter { position in
-            position.occupany != Piece.Blank
+            position.occupany != Piece.Blank && position.player == player
         }.filter { position in
             position.destroyed == false
-        }.count == 0
+        }
+    }
+    
+    func isGameWon(board: Array<Position>) -> Optional<Player> {
+        let hasP1Won = getPlayersDestroyedShips(board: board, player: Player.P1).count == 0
+        let hasAIWon = getPlayersDestroyedShips(board: board, player: Player.AI).count == 0
+        
+        if(hasAIWon) { return Optional.some(Player.AI) }
+        if(hasP1Won) { return Optional.some(Player.P1) }
+            
+        return Optional.none
     }
 }

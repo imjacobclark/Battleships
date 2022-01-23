@@ -66,12 +66,12 @@ class GameScene: SKScene {
     override func sceneDidLoad() {
         var board = Board().generateBoard()
         
-        board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer))
-        board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine))
-        board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier))
-        board = Board().placeShip(board: board, ship: Position(x: 6, y: 8, occupany: Piece.Battleship))
-        board = Board().placeShip(board: board, ship: Position(x: 7, y: 0, occupany: Piece.PatrolBoat))
-        board = Board().placeShip(board: board, ship: Position(x: 7, y: 9, occupany: Piece.PatrolBoat))
+        board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer, player: Player.P1))
+        board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine, player: Player.P1))
+        board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier, player: Player.P1))
+        board = Board().placeShip(board: board, ship: Position(x: 6, y: 8, occupany: Piece.Battleship, player: Player.P1))
+        board = Board().placeShip(board: board, ship: Position(x: 7, y: 0, occupany: Piece.PatrolBoat, player: Player.P1))
+        board = Board().placeShip(board: board, ship: Position(x: 7, y: 9, occupany: Piece.PatrolBoat, player: Player.P1))
         
         board = Board().placeShipRandomly(board: board, ship: Piece.Destroyer)
         board = Board().placeShipRandomly(board: board, ship: Piece.Submarine)
