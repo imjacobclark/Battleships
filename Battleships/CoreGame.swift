@@ -68,6 +68,7 @@ struct Board {
         if((ship.orientation == Orientation.Horizontal && ship.x + length-1 <= 9) || (ship.orientation == Orientation.Vertical && ship.y + length-1 <= 9)){
             for n in 0..<length {
                 if(ship.orientation == Orientation.Horizontal) {
+                    print(ship.occupany)
                     board[index + n] = Position(x: ship.x+n, y: ship.y, occupany: ship.occupany)
                 }
                 
@@ -81,7 +82,7 @@ struct Board {
     }
     
     // Curently only placing Horizontal ships
-    func placeShipRandomly(board: Array<Position>) -> Array<Position> {
+    func placeShipRandomly(board: Array<Position>, ship: Piece) -> Array<Position> {
         var board = board
         let avaliablePositions = board.filter { Position in
             Position.occupany == Piece.Blank
@@ -91,8 +92,13 @@ struct Board {
 //        let orientation = Int.random(in: 0...1) == 0 ? Orientation.Horizontal : Orientation.Vertical
         let orientation = Orientation.Horizontal
         
-        if(orientation == Orientation.Horizontal && avaliablePositions[position+1].x == avaliablePositions[position].x+1){
-            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: Piece.PatrolBoat))
+        // This can go out of range, need to catch it
+        let shipCanBePlacedInThisLocation = orientation == Orientation.Horizontal && avaliablePositions[position+1].x == avaliablePositions[position].x+1
+        
+        if(shipCanBePlacedInThisLocation){
+            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship))
+        } else {
+            board = placeShipRandomly(board: board, ship: ship)
         }
         
         return board
@@ -107,5 +113,13 @@ struct Board {
         }
         
         return board
+    }
+    
+    func isGameWon(board: Array<Position>) -> Bool {
+        return board.filter { position in
+            position.occupany != Piece.Blank
+        }.filter { position in
+            position.destroyed == false
+        }.count == 0
     }
 }

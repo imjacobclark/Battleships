@@ -64,30 +64,27 @@ class GameScene: SKScene {
     private var spinnyNode : SKShapeNode?
     
     override func sceneDidLoad() {
-        
         var board = Board().generateBoard()
-//        board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer))
-//        board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine))
-//        board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier))
-//        board = Board().placeShip(board: board, ship: Position(x: 6, y: 8, occupany: Piece.Battleship))
-//        board = Board().placeShip(board: board, ship: Position(x: 7, y: 0, occupany: Piece.PatrolBoat))
-//        board = Board().placeShip(board: board, ship: Position(x: 7, y: 9, occupany: Piece.PatrolBoat))
         
-        board = Board().placeShipRandomly(board: board)
+        board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer))
+        board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine))
+        board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier))
+        board = Board().placeShip(board: board, ship: Position(x: 6, y: 8, occupany: Piece.Battleship))
+        board = Board().placeShip(board: board, ship: Position(x: 7, y: 0, occupany: Piece.PatrolBoat))
+        board = Board().placeShip(board: board, ship: Position(x: 7, y: 9, occupany: Piece.PatrolBoat))
         
-        print(board)
-        
+        board = Board().placeShipRandomly(board: board, ship: Piece.Destroyer)
+        board = Board().placeShipRandomly(board: board, ship: Piece.Submarine)
+        board = Board().placeShipRandomly(board: board, ship: Piece.AircraftCarrier)
+        board = Board().placeShipRandomly(board: board, ship: Piece.Battleship)
+        board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
+        board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
+                
         board = Board().strike(x:0, y:0, board: board)
         board = Board().strike(x:1, y:0, board: board)
         board = Board().strike(x:2, y:0, board: board)
         
-        var isGameWon = board.filter { position in
-            position.occupany != Piece.Blank
-        }.filter { position in
-            position.destroyed == false
-        }.count == 0
-        
-        print(isGameWon)
+        print(Board().isGameWon(board: board))
         
         generateGrid().forEach { GridPosition in
             let x = SKShapeNode.init(rectOf: CGSize.init(width: gridItemWidth, height: gridItemHeight))
