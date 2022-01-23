@@ -18,6 +18,7 @@
 		80AE5C84279B611900FA41BF /* BattleshipsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C83279B611900FA41BF /* BattleshipsTests.swift */; };
 		80AE5C8E279B611900FA41BF /* BattleshipsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C8D279B611900FA41BF /* BattleshipsUITests.swift */; };
 		80AE5C90279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */; };
+		80AE5C9D279CE32900FA41BF /* CoreGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C9C279CE32900FA41BF /* CoreGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		80AE5C89279B611900FA41BF /* BattleshipsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BattleshipsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AE5C8D279B611900FA41BF /* BattleshipsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipsUITests.swift; sourceTree = "<group>"; };
 		80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		80AE5C9C279CE32900FA41BF /* CoreGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				80AE5C73279B611500FA41BF /* Main.storyboard */,
 				80AE5C76279B611800FA41BF /* Assets.xcassets */,
 				80AE5C78279B611800FA41BF /* LaunchScreen.storyboard */,
+				80AE5C9C279CE32900FA41BF /* CoreGame.swift */,
 			);
 			path = Battleships;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80AE5C9D279CE32900FA41BF /* CoreGame.swift in Sources */,
 				80AE5C70279B611500FA41BF /* GameScene.swift in Sources */,
 				80AE5C72279B611500FA41BF /* GameViewController.swift in Sources */,
 				80AE5C6A279B611500FA41BF /* AppDelegate.swift in Sources */,
