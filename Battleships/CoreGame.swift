@@ -16,6 +16,18 @@ let Ships: [Piece:Int] = [
     Piece.Submarine: 3
 ]
 
+enum Level {
+    case Easy
+    case Medium
+    case Hard
+}
+
+let DifficultyProbabilities: [Level:Float] = [
+    Level.Easy: 0.2,
+    Level.Medium: 0.5,
+    Level.Hard: 0.7
+]
+
 enum Piece {
     case Blank
     case PatrolBoat
@@ -51,7 +63,7 @@ struct Board {
         var row = 0
         var column = 0
 
-        for n in 0..<101 {
+        for n in 1..<101 {
             positions.append(Position(x: row, y: column))
             
             row = row + 1
@@ -74,7 +86,6 @@ struct Board {
         if((ship.orientation == Orientation.Horizontal && ship.x + length-1 <= 9) || (ship.orientation == Orientation.Vertical && ship.y + length-1 <= 9)){
             for n in 0..<length {
                 if(ship.orientation == Orientation.Horizontal) {
-                    print(ship.occupany)
                     board[index + n] = Position(x: ship.x+n, y: ship.y, occupany: ship.occupany, player: ship.player)
                 }
                 
@@ -87,12 +98,22 @@ struct Board {
         return board
     }
     
+    func getAvaliablePositions(board: Array<Position>) -> Array<Position> {
+        return board.filter { Position in
+            Position.occupany == Piece.Blank
+        }
+    }
+    
+    func getOccupiedPositions(board: Array<Position>) -> Array<Position> {
+        return board.filter { Position in
+            Position.occupany != Piece.Blank
+        }
+    }
+    
     // Curently only placing Horizontal ships
     func placeShipRandomly(board: Array<Position>, ship: Piece) -> Array<Position> {
         var board = board
-        let avaliablePositions = board.filter { Position in
-            Position.occupany == Piece.Blank
-        }
+        let avaliablePositions = getAvaliablePositions(board: board)
         
         let position = Int.random(in: 1..<avaliablePositions.count)
 //        let orientation = Int.random(in: 0...1) == 0 ? Orientation.Horizontal : Orientation.Vertical
@@ -110,15 +131,13 @@ struct Board {
         return board
     }
     
-    func strike(x: Int, y: Int, board: Array<Position>) -> Array<Position> {
+    func strike(x: Int, y: Int, board: Array<Position>) -> (hit: Position, board: Array<Position>) {
         var board = board
         let index = 10 * y + x
         
-        if(board[index].occupany != Piece.Blank){
-            board[index].destroyed = true
-        }
+        board[index].destroyed = true
         
-        return board
+        return (hit: board[index], board: board)
     }
     
     private func getPlayersDestroyedShips(board: Array<Position>, player: Player) -> Array<Position> {
@@ -137,5 +156,23 @@ struct Board {
         if(hasP1Won) { return Optional.some(Player.P1) }
             
         return Optional.none
+    }
+    
+    func AITakeTurn(board: Array<Position>, level: Level) -> (hit: Position, board: Array<Position>) {
+        let avaliablePositions = getAvaliablePositions(board: board)
+        let occupiedPositions = getOccupiedPositions(board: board).filter { Position in
+            Position.player != Player.AI
+        }
+        
+        let d = Float.random(in: 0..<1)
+        var position = 0
+        
+        if (d < DifficultyProbabilities[level]!){
+            position = Int.random(in: 1..<occupiedPositions.count)
+            return strike(x: occupiedPositions[position].x, y: occupiedPositions[position].y, board: board)
+        }else{
+            position = Int.random(in: 1..<avaliablePositions.count)
+            return strike(x: avaliablePositions[position].x, y: avaliablePositions[position].y, board: board)
+        }
     }
 }

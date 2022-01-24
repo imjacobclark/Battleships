@@ -16,37 +16,12 @@ var gridItemPadding = 2
 var numberOfGridRows = 10
 var endOfGrid = gridStartY + (gridItemHeight+gridItemPadding) * numberOfGridRows
 
-struct GridPosition {
-    var x = 0
-    var y = 0
-    var occupied = false
-}
-
-func generateGrid() -> Array<GridPosition>{
-    var currentX = gridStartX
-    var currentY = gridStartY
-    var cells = Array<GridPosition>()
-    
-    for n in 1..<101 {
-        cells.append(GridPosition(x: currentX, y:-currentY))
-
-        if n % 10 == 0 && (n != 0) {
-            currentX = gridStartX
-            currentY = currentY+gridItemHeight+gridItemPadding
-        }else{
-            currentX = currentX+gridItemWidth+gridItemPadding
-        }
-    }
-    
-    return cells
-}
-
 func generateBoat(x: Int, y: Int, length: Int) -> SKShapeNode {
     let container = SKShapeNode.init(rectOf: CGSize.init(width: 100, height: 50))
     container.position = CGPoint(x: x, y:y)
     var xPosition = -25
     
-    for n in 0..<length {
+    for _ in 0..<length {
         let b = SKShapeNode.init(rectOf: CGSize.init(width: 50, height: 50))
         b.fillColor = SKColor.green
         b.strokeColor = SKColor.black
@@ -62,10 +37,9 @@ func generateBoat(x: Int, y: Int, length: Int) -> SKShapeNode {
 class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    
+    var board = Board().generateBoard()
+
     override func sceneDidLoad() {
-        var board = Board().generateBoard()
-        
         board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer, player: Player.P1))
         board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine, player: Player.P1))
         board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier, player: Player.P1))
@@ -80,34 +54,12 @@ class GameScene: SKScene {
         board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
         board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
                 
-        board = Board().strike(x:0, y:0, board: board)
-        board = Board().strike(x:1, y:0, board: board)
-        board = Board().strike(x:2, y:0, board: board)
-        
-        print(Board().isGameWon(board: board))
-        
-        generateGrid().forEach { GridPosition in
-            let x = SKShapeNode.init(rectOf: CGSize.init(width: gridItemWidth, height: gridItemHeight))
-            x.fillColor = SKColor.yellow
-            x.position = CGPoint(x:GridPosition.x, y:GridPosition.y)
-            self.addChild(x)
-        }
-        
-        self.addChild(generateBoat(x: 124, y: -endOfGrid-10, length: 2))
-        self.addChild(generateBoat(x: 248, y:-endOfGrid-10, length: 2))
-        self.addChild(generateBoat(x: 124, y:-endOfGrid-70, length: 3))
-        self.addChild(generateBoat(x: 124, y:-endOfGrid-130, length: 4))
+        board = Board().strike(x:0, y:0, board: board).board
+        board = Board().strike(x:1, y:0, board: board).board
+        board = Board().strike(x:2, y:0, board: board).board
     }
     
     override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
         self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
@@ -169,6 +121,42 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        self.removeAllActions()
+        self.removeAllChildren()
+        
+        board.forEach { position in
+            let xPosition = (50 * position.x) + 100
+            let yPosition = -((50 * position.y) + 100)
+
+            let x = SKShapeNode.init(rectOf: CGSize.init(width: 50, height: 50))
+            
+            if(position.destroyed){
+                x.fillColor = SKColor.darkGray
+            }else if(position.occupany == Piece.Blank){
+                x.fillColor = SKColor.blue
+            }else if(position.occupany != Piece.Blank){
+                if(position.player == Player.AI){
+                    x.fillColor = SKColor.blue
+                }
+                
+                if(position.player == Player.P1){
+                    x.fillColor = SKColor.orange
+                }
+            }
+            x.position = CGPoint(x: xPosition, y: yPosition)
+            
+            self.addChild(x)
+        }
+        
+        if((Board().isGameWon(board: board)) != nil){
+            return
+        }
+
+        board = Board().AITakeTurn(board: board, level: Level.Medium).board
+        
+        self.addChild(generateBoat(x: 124, y: -endOfGrid-10, length: 2))
+        self.addChild(generateBoat(x: 248, y:-endOfGrid-10, length: 2))
+        self.addChild(generateBoat(x: 124, y:-endOfGrid-70, length: 3))
+        self.addChild(generateBoat(x: 124, y:-endOfGrid-130, length: 4))
     }
 }
