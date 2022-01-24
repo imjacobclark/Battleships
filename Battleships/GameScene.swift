@@ -40,6 +40,7 @@ class GameScene: SKScene {
     var board = Board().generateBoard()
 
     override func sceneDidLoad() {
+        // Place user ships
         board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer, player: Player.P1))
         board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine, player: Player.P1))
         board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier, player: Player.P1))
@@ -47,6 +48,7 @@ class GameScene: SKScene {
         board = Board().placeShip(board: board, ship: Position(x: 7, y: 0, occupany: Piece.PatrolBoat, player: Player.P1))
         board = Board().placeShip(board: board, ship: Position(x: 7, y: 9, occupany: Piece.PatrolBoat, player: Player.P1))
         
+        // Place AI ships
         board = Board().placeShipRandomly(board: board, ship: Piece.Destroyer)
         board = Board().placeShipRandomly(board: board, ship: Piece.Submarine)
         board = Board().placeShipRandomly(board: board, ship: Piece.AircraftCarrier)
@@ -54,9 +56,13 @@ class GameScene: SKScene {
         board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
         board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
                 
-        board = Board().strike(x:0, y:0, board: board).board
-        board = Board().strike(x:1, y:0, board: board).board
-        board = Board().strike(x:2, y:0, board: board).board
+        // User strike!
+//        var strike = Board().strike(x:0, y:0, board: board, turn: Player.P1) // Shouldn't be allowed, this is a users ship!
+//        board = strike.board
+
+//        strike = Board().strike(x:5, y:0, board: board, turn: Player.P1) // Should be allowed
+//        board = strike.board
+
     }
     
     override func didMove(to view: SKView) {
@@ -130,13 +136,17 @@ class GameScene: SKScene {
 
             let x = SKShapeNode.init(rectOf: CGSize.init(width: 50, height: 50))
             
-            if(position.destroyed){
+            if(position.destroyed && position.player == Player.P1){
+                x.fillColor = SKColor.red
+            }else if(position.destroyed && position.player == Player.AI){
                 x.fillColor = SKColor.darkGray
+            }else if(position.destroyed && position.player == Player.None){
+                x.fillColor = SKColor.lightGray
             }else if(position.occupany == Piece.Blank){
                 x.fillColor = SKColor.blue
             }else if(position.occupany != Piece.Blank){
                 if(position.player == Player.AI){
-                    x.fillColor = SKColor.blue
+                    x.fillColor = SKColor.green
                 }
                 
                 if(position.player == Player.P1){
@@ -148,15 +158,13 @@ class GameScene: SKScene {
             self.addChild(x)
         }
         
-        if((Board().isGameWon(board: board)) != nil){
-            return
-        }
-
         board = Board().AITakeTurn(board: board, level: Level.Medium).board
-        
+
         self.addChild(generateBoat(x: 124, y: -endOfGrid-10, length: 2))
         self.addChild(generateBoat(x: 248, y:-endOfGrid-10, length: 2))
         self.addChild(generateBoat(x: 124, y:-endOfGrid-70, length: 3))
-        self.addChild(generateBoat(x: 124, y:-endOfGrid-130, length: 4))
+        self.addChild(generateBoat(x: 124, y:-endOfGrid-130, length: 3))
+        self.addChild(generateBoat(x: 124, y:-endOfGrid-190, length: 4))
+        self.addChild(generateBoat(x: 124, y:-endOfGrid-250, length: 5))
     }
 }

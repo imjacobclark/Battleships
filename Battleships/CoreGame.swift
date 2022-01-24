@@ -8,14 +8,6 @@
 import Foundation
 import UIKit
 
-let Ships: [Piece:Int] = [
-    Piece.PatrolBoat: 2,
-    Piece.AircraftCarrier: 5,
-    Piece.Battleship: 4,
-    Piece.Destroyer: 3,
-    Piece.Submarine: 3
-]
-
 enum Level {
     case Easy
     case Medium
@@ -26,6 +18,14 @@ let DifficultyProbabilities: [Level:Float] = [
     Level.Easy: 0.2,
     Level.Medium: 0.5,
     Level.Hard: 0.7
+]
+
+let Ships: [Piece:Int] = [
+    Piece.PatrolBoat: 2,
+    Piece.AircraftCarrier: 5,
+    Piece.Battleship: 4,
+    Piece.Destroyer: 3,
+    Piece.Submarine: 3
 ]
 
 enum Piece {
@@ -45,6 +45,7 @@ enum Orientation {
 enum Player {
     case AI
     case P1
+    case None
 }
 
 struct Position {
@@ -53,7 +54,7 @@ struct Position {
     var occupany = Piece.Blank
     var destroyed = false
     var orientation = Orientation.Horizontal
-    var player = Player.P1
+    var player = Player.None
 }
 
 struct Board {
@@ -131,13 +132,17 @@ struct Board {
         return board
     }
     
-    func strike(x: Int, y: Int, board: Array<Position>) -> (hit: Position, board: Array<Position>) {
+    func strike(x: Int, y: Int, board: Array<Position>, turn: Player) -> (hit: Optional<Position>, board: Array<Position>) {
         var board = board
         let index = 10 * y + x
         
+        if(board[index].player == turn) {
+            return (hit: Optional.none, board: board)
+        }
+        
         board[index].destroyed = true
         
-        return (hit: board[index], board: board)
+        return (hit: Optional.some(board[index]), board: board)
     }
     
     private func getPlayersDestroyedShips(board: Array<Position>, player: Player) -> Array<Position> {
@@ -158,21 +163,27 @@ struct Board {
         return Optional.none
     }
     
-    func AITakeTurn(board: Array<Position>, level: Level) -> (hit: Position, board: Array<Position>) {
-        let avaliablePositions = getAvaliablePositions(board: board)
+    func AITakeTurn(board: Array<Position>, level: Level) -> (hit: Optional<Position>, board: Array<Position>) {
+        let avaliablePositions = getAvaliablePositions(board: board).filter { Position in
+            Position.destroyed == false
+        }
         let occupiedPositions = getOccupiedPositions(board: board).filter { Position in
             Position.player != Player.AI
         }
-        
+                
         let d = Float.random(in: 0..<1)
         var position = 0
         
         if (d < DifficultyProbabilities[level]!){
-            position = Int.random(in: 1..<occupiedPositions.count)
-            return strike(x: occupiedPositions[position].x, y: occupiedPositions[position].y, board: board)
+            position = Int.random(in: 0..<occupiedPositions.count)
+            return strike(x: occupiedPositions[position].x, y: occupiedPositions[position].y, board: board, turn: Player.AI)
         }else{
-            position = Int.random(in: 1..<avaliablePositions.count)
-            return strike(x: avaliablePositions[position].x, y: avaliablePositions[position].y, board: board)
+            if(avaliablePositions.count < 1){
+                return (hit: Optional.none, board: board)
+            }
+            
+            position = Int.random(in: 0..<avaliablePositions.count)
+            return strike(x: avaliablePositions[position].x, y: avaliablePositions[position].y, board: board, turn: Player.AI)
         }
     }
 }
