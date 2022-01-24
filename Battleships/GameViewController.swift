@@ -10,19 +10,21 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-
+    var difficulty: Level = Level.Easy
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
+//            if let scene = SKScene(fileNamed: "GameScene") {
+//                scene.scaleMode = .aspectFill
+//                view.presentScene(scene)
+//            }
+            
+            let gc = GameScene(size: view.bounds.size)
+            gc.difficulty = difficulty
+            gc.scaleMode = .resizeFill
+            view.presentScene(gc)
             
             view.ignoresSiblingOrder = true
             
@@ -32,7 +34,7 @@ class GameViewController: UIViewController {
     }
 
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		80AE5C6A279B611500FA41BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C69279B611500FA41BF /* AppDelegate.swift */; };
-		80AE5C6C279B611500FA41BF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 80AE5C6B279B611500FA41BF /* GameScene.sks */; };
 		80AE5C6E279B611500FA41BF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 80AE5C6D279B611500FA41BF /* Actions.sks */; };
 		80AE5C70279B611500FA41BF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C6F279B611500FA41BF /* GameScene.swift */; };
 		80AE5C72279B611500FA41BF /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C71279B611500FA41BF /* GameViewController.swift */; };
@@ -19,6 +18,7 @@
 		80AE5C8E279B611900FA41BF /* BattleshipsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C8D279B611900FA41BF /* BattleshipsUITests.swift */; };
 		80AE5C90279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */; };
 		80AE5C9D279CE32900FA41BF /* CoreGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C9C279CE32900FA41BF /* CoreGame.swift */; };
+		80F3AB1E279F1212005DFE69 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3AB1D279F1212005DFE69 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,6 @@
 /* Begin PBXFileReference section */
 		80AE5C66279B611500FA41BF /* Battleships.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleships.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AE5C69279B611500FA41BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		80AE5C6B279B611500FA41BF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		80AE5C6D279B611500FA41BF /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		80AE5C6F279B611500FA41BF /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		80AE5C71279B611500FA41BF /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +53,8 @@
 		80AE5C8D279B611900FA41BF /* BattleshipsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipsUITests.swift; sourceTree = "<group>"; };
 		80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		80AE5C9C279CE32900FA41BF /* CoreGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGame.swift; sourceTree = "<group>"; };
+		80EC53B5279ED6D6000DED30 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		80F3AB1D279F1212005DFE69 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +85,7 @@
 		80AE5C5D279B611500FA41BF = {
 			isa = PBXGroup;
 			children = (
+				80EC53B5279ED6D6000DED30 /* README.md */,
 				80AE5C68279B611500FA41BF /* Battleships */,
 				80AE5C82279B611900FA41BF /* BattleshipsTests */,
 				80AE5C8C279B611900FA41BF /* BattleshipsUITests */,
@@ -105,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				80AE5C69279B611500FA41BF /* AppDelegate.swift */,
-				80AE5C6B279B611500FA41BF /* GameScene.sks */,
 				80AE5C6D279B611500FA41BF /* Actions.sks */,
 				80AE5C6F279B611500FA41BF /* GameScene.swift */,
 				80AE5C71279B611500FA41BF /* GameViewController.swift */,
@@ -113,6 +114,7 @@
 				80AE5C76279B611800FA41BF /* Assets.xcassets */,
 				80AE5C78279B611800FA41BF /* LaunchScreen.storyboard */,
 				80AE5C9C279CE32900FA41BF /* CoreGame.swift */,
+				80F3AB1D279F1212005DFE69 /* HomeViewController.swift */,
 			);
 			path = Battleships;
 			sourceTree = "<group>";
@@ -239,7 +241,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				80AE5C75279B611500FA41BF /* Main.storyboard in Resources */,
-				80AE5C6C279B611500FA41BF /* GameScene.sks in Resources */,
 				80AE5C77279B611800FA41BF /* Assets.xcassets in Resources */,
 				80AE5C7A279B611800FA41BF /* LaunchScreen.storyboard in Resources */,
 				80AE5C6E279B611500FA41BF /* Actions.sks in Resources */,
@@ -267,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F3AB1E279F1212005DFE69 /* HomeViewController.swift in Sources */,
 				80AE5C9D279CE32900FA41BF /* CoreGame.swift in Sources */,
 				80AE5C70279B611500FA41BF /* GameScene.swift in Sources */,
 				80AE5C72279B611500FA41BF /* GameViewController.swift in Sources */,
