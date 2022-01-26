@@ -133,6 +133,7 @@ struct Board {
     }
     
     func strike(x: Int, y: Int, board: Array<Position>, turn: Player) -> (hit: Optional<Position>, board: Array<Position>) {
+        print(x,y)
         var board = board
         let index = 10 * y + x
         
@@ -150,6 +151,12 @@ struct Board {
             position.occupany != Piece.Blank && position.player == player
         }.filter { position in
             position.destroyed == false
+        }
+    }
+    
+    func getPlayersShips(board: Array<Position>, player: Player) -> Array<Position> {
+        return board.filter { position in
+            position.occupany != Piece.Blank && position.player == player
         }
     }
     

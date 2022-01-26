@@ -1,53 +1,90 @@
-//
-//  GameScene.swift
-//  Battleships
-//
-//  Created by Jacob Clark on 21/01/2022.
-//
-
 import SpriteKit
 import GameplayKit
 
-var numberOfGridRows = 10
-
-func generateBoat(x: Int, y: Int, length: Int, width: Int) -> SKShapeNode {
-    let container = SKShapeNode.init(rectOf: CGSize.init(width: width*2, height: width))
-    container.position = CGPoint(x: x, y:y)
-    container.name = "PatrolBoat"
-    container.zPosition = 90000
-    var xPosition = -(width/2)
-        
-    for _ in 0..<length {
-        let b = SKShapeNode.init(rectOf: CGSize.init(width: width-2, height: width-2))
-        b.fillColor = SKColor.green
-        b.strokeColor = SKColor.black
-        b.position = CGPoint(x:xPosition, y:0)
-        container.addChild(b)
-
-        xPosition = xPosition + width
-    }
-    
-    return container
+struct MovablePiece {
+    var name: String = ""
+    var piece: Piece = Piece.Blank
+    var occupancy = 0
 }
 
 class GameScene: SKScene {
-    var board = Board().generateBoard()
+    var p1Board = Board().generateBoard()
+    var aiBoard = Board().generateBoard()
     var difficulty = Level.Easy
+    var moveableShipNames: [String:MovablePiece] = [:]
+    var turn = Player.None
+    var txt = SKLabelNode(text: "Hello World")
+    
+    func generateBoat(x: Int, y: Int, piece: Piece, width: Int, name: String) -> SKShapeNode {
+        let container = SKShapeNode.init(rectOf: CGSize.init(width: width*2, height: width))
+        container.position = CGPoint(x: x, y:y)
+        container.name = name
+        container.zPosition = 90000
+        var xPosition = -(width/2)
+            
+        for _ in 0..<Ships[piece]! {
+            let b = SKShapeNode.init(rectOf: CGSize.init(width: width-2, height: width-2))
+            b.fillColor = SKColor.green
+            b.position = CGPoint(x:xPosition, y:0)
+            container.addChild(b)
 
-    func setUpGame(){
-        board = Board().placeShip(board: board, ship: Position(x: 0, y: 0, occupany: Piece.Destroyer, player: Player.P1))
-        board = Board().placeShip(board: board, ship: Position(x: 0, y: 4, occupany: Piece.Submarine, player: Player.P1))
-        board = Board().placeShip(board: board, ship: Position(x: 5, y: 4, occupany: Piece.AircraftCarrier, player: Player.P1))
-        board = Board().placeShip(board: board, ship: Position(x: 6, y: 8, occupany: Piece.Battleship, player: Player.P1))
-        board = Board().placeShip(board: board, ship: Position(x: 7, y: 0, occupany: Piece.PatrolBoat, player: Player.P1))
-        board = Board().placeShip(board: board, ship: Position(x: 7, y: 9, occupany: Piece.PatrolBoat, player: Player.P1))
+            xPosition = xPosition + width
+        }
+        
+        moveableShipNames[name] = MovablePiece(name: name, piece: piece, occupancy: Ships[piece]!)
+        
+        return container
+    }
+    
+    var boardTileNodes: Array<SKShapeNode> = []
+    
+    func drawBoard(){
+        let width = getBoxWidth()
+        let view = self.view!
 
-        board = Board().placeShipRandomly(board: board, ship: Piece.Destroyer)
-        board = Board().placeShipRandomly(board: board, ship: Piece.Submarine)
-        board = Board().placeShipRandomly(board: board, ship: Piece.AircraftCarrier)
-        board = Board().placeShipRandomly(board: board, ship: Piece.Battleship)
-        board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
-        board = Board().placeShipRandomly(board: board, ship: Piece.PatrolBoat)
+        let container = self.childNode(withName: "BoardContainer")
+        
+        var board = p1Board
+        
+        if(turn == Player.P1){
+            board = aiBoard
+        }
+        
+        for (index, position) in board.enumerated() {
+            let x = SKShapeNode.init(rectOf: CGSize.init(width: width, height: width))
+            x.name = "T" + String(position.x) + "," + String(position.y)
+
+            if(position.destroyed && position.player == Player.P1){
+                x.fillColor = SKColor.red
+            }else if(position.destroyed && position.player == Player.AI){
+                x.fillColor = SKColor.red
+            }else if(position.destroyed && position.player == Player.None){
+                x.fillColor = SKColor.lightGray
+            }else if(position.occupany == Piece.Blank){
+                x.fillColor = SKColor.blue
+            }else if(position.occupany != Piece.Blank){
+                if(position.player == Player.AI){
+                    x.fillColor = SKColor.blue
+                }
+
+                if(position.player == Player.P1){
+                    x.fillColor = SKColor.orange
+                }
+            }
+            
+            let xPosition = (width * position.x) + width
+            
+            let yPadding = Int(view.frame.height) - (width*10)-(Int(view.safeAreaInsets.bottom))
+            let yPosition = ((width * (9-position.y)) + yPadding)
+            
+            x.position = CGPoint(x: xPosition, y: yPosition)
+            
+            boardTileNodes.append(x)
+        }
+        
+        boardTileNodes.forEach { node in
+            container!.addChild(node)
+        }
     }
     
     override func sceneDidLoad() {
@@ -56,14 +93,31 @@ class GameScene: SKScene {
         self.addChild(container)
     }
     
+    func getBoxWidth() -> Int {
+        let gridRowsForPadding = 1
+        let numberOfGridRows = 10
+        
+        let view = self.view!
+
+        return Int(view.frame.width)/(numberOfGridRows + gridRowsForPadding)
+    }
+    
     override func didMove(to view: SKView) {
-        setUpGame()
         drawBoard()
         
-        let gridRowsForPadding = 1
-        let width = Int(view.frame.width)/(numberOfGridRows + gridRowsForPadding)
+        let width = getBoxWidth()
         
-        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*12)-(Int(view.safeAreaInsets.bottom)), length: 2, width: width))
+        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*12)-(Int(view.safeAreaInsets.bottom)), piece: Piece.PatrolBoat, width: width, name: "PatrolBoat01"))
+        
+        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*13)-(Int(view.safeAreaInsets.bottom)), piece: Piece.PatrolBoat, width: width, name: "PatrolBoat02"))
+        
+        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*14)-(Int(view.safeAreaInsets.bottom)), piece: Piece.Submarine, width: width, name: "Submarine"))
+        
+        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*15)-(Int(view.safeAreaInsets.bottom)), piece: Piece.Destroyer, width: width, name: "Destroyer"))
+        
+        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*16)-(Int(view.safeAreaInsets.bottom)), piece: Piece.Battleship, width: width, name: "Battleship"))
+        
+        addChild(generateBoat(x: width + 15, y: Int(view.frame.height) - (width*17)-(Int(view.safeAreaInsets.bottom)), piece: Piece.AircraftCarrier, width: width, name: "Carrier"))
     }
     
     var movableNode : SKNode?
@@ -71,16 +125,53 @@ class GameScene: SKScene {
     var movableNodeStartY: CGFloat = 0.0
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let sprite = self.childNode(withName: "PatrolBoat")
+        let width = getBoxWidth()
+        let view = self.view!
+        
+        moveableShipNames.forEach { name in
+            let sprite = self.childNode(withName: name.key)
+            
+//            sprite?.isHidden = false
 
-        if let touch = touches.first {
-            let location = touch.location(in: self)
-            if (sprite?.contains(location))! {
-                movableNode = sprite
-                movableNodeStartX = (movableNode?.position.x)! - location.x
-                movableNodeStartY = (movableNode?.position.y)! - location.y
+            if let touch = touches.first {
+                let location = touch.location(in: self)
+                if (sprite?.contains(location))! {
+                    movableNode = sprite
+                    movableNodeStartX = (movableNode?.position.x)! - location.x
+                    movableNodeStartY = (movableNode?.position.y)! - location.y
+                }
             }
         }
+        
+        boardTileNodes.forEach { sprite in
+            if(turn != Player.P1){
+                return
+            }
+            
+            if let touch = touches.first {
+                let location = touch.location(in: self)
+                if (sprite.contains(location)) {
+                    let xPositionToMoveTo = Int(location.x)
+                    let yPositionToMoveTo = Int(location.y)
+                    
+                    let yPadding = Int(view.frame.height) - (width*10)-(Int(view.safeAreaInsets.bottom))
+                    let mapToPrimitiveYPosition = abs((yPadding + ((((Int(yPositionToMoveTo) / width) - yPadding) - width)) + 16))
+                    
+                    let mapToPrimitiveXPosition = (xPositionToMoveTo - width) / width
+                                        
+                    aiBoard = Board().strike(x: mapToPrimitiveXPosition, y: mapToPrimitiveYPosition, board: aiBoard, turn: Player.P1).board
+
+                    
+                    run(SKAction.repeat(SKAction.sequence([SKAction.wait(forDuration: 1), SKAction.run {
+                        self.turn = Player.AI
+                        self.txt.text = "Computers move"
+                        self.redrawBoard()
+                    }]), count: 1))
+
+                }
+            }
+        }
+        redrawBoard()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -90,75 +181,83 @@ class GameScene: SKScene {
         }
     }
     
-    
-    /*
-     
-     It's getting late and I'm tired.. this code needs cleanin up and we need to implement snappable Y
-     
-     */
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let view = self.view else { return }
-        let gridRowsForPadding = 1
-        
-        let width = Int(view.frame.width)/(numberOfGridRows + gridRowsForPadding)
+        let width = getBoxWidth()
+        let view = self.view!
         
         if let touch = touches.first, movableNode != nil {
             let location = touch.location(in: self)
             
-            // Need to snap on Y
-            let snappablePositionX = ((Int(location.x)+Int(movableNodeStartX))-Int(width)-(width/2)) / width
-
-            movableNode!.position = CGPoint(x: Double((width * snappablePositionX) + width + (width/2)), y: location.y+movableNodeStartY)
-        }
-    }
-    
-    func drawBoard(){
-        guard let view = self.view else { return }
-        let gridRowsForPadding = 1
-        
-        let width = Int(view.frame.width)/(numberOfGridRows + gridRowsForPadding)
-        
-        let container = self.childNode(withName: "BoardContainer")
-
-        board.forEach { position in
-            let xPosition = (width * position.x) + width
+            let xPositionToMoveTo = Int(location.x) + Int(movableNodeStartX)
+            let yPositionToMoveTo = Double(Int(location.y) + Int(movableNodeStartY))
             
             let yPadding = Int(view.frame.height) - (width*10)-(Int(view.safeAreaInsets.bottom))
-            let yPosition = ((width * position.y) + yPadding)
-
-            let x = SKShapeNode.init(rectOf: CGSize.init(width: width, height: width))
-
-            if(position.destroyed && position.player == Player.P1){
-                x.fillColor = SKColor.red
-            }else if(position.destroyed && position.player == Player.AI){
-                x.fillColor = SKColor.darkGray
-            }else if(position.destroyed && position.player == Player.None){
-                x.fillColor = SKColor.lightGray
-            }else if(position.occupany == Piece.Blank){
-                x.fillColor = SKColor.blue
-            }else if(position.occupany != Piece.Blank){
-                if(position.player == Player.AI){
-                    x.fillColor = SKColor.green
-                }
-
-                if(position.player == Player.P1){
-                    x.fillColor = SKColor.orange
-                }
-            }
+            let mapToPrimitiveYPosition = abs((yPadding + ((((Int(yPositionToMoveTo) / width) - yPadding) - width)) + 16))
             
-            x.position = CGPoint(x: xPosition, y: yPosition)
-
-            container!.addChild(x)
+            let mapToPrimitiveXPosition = (xPositionToMoveTo - width - (width / 2) ) / width
+//            let mappedPrimitiveXPositionToGraphicalPosition = Double((width * mapToPrimitiveXPosition) + width + (width/2))
+            
+            p1Board = Board().placeShip(board: p1Board, ship: Position(x: mapToPrimitiveXPosition, y: mapToPrimitiveYPosition, occupany: moveableShipNames[movableNode!.name!]!.piece, player: Player.P1))
+                        
+//            movableNode!.position = CGPoint(x: mappedPrimitiveXPositionToGraphicalPosition, y: Double(((width * mapToPrimitiveYPosition) + yPadding)))
+            movableNode?.isHidden = true
+        }
+        
+        movableNode = nil
+        redrawBoard()
+    }
+    
+    func redrawBoard() {
+        if let BoardContainer = self.childNode(withName: "BoardContainer") {
+            BoardContainer.removeAllChildren()
+            boardTileNodes = []
+            drawBoard()
         }
     }
     
+    var shipsHaveBeenPlaced = false
+    var lastRunAt: Double = 0.0
+    var hasAIMoved = false
     override func update(_ currentTime: TimeInterval) {
-//        board = Board().AITakeTurn(board: board, level: Level.Medium).board
-        
-        if let BoardContainer = self.childNode(withName: "BoardContainer") {
-            BoardContainer.removeAllChildren()
-            drawBoard()
+        if(Board().getPlayersShips(board: p1Board, player: Player.P1).count == 19){
+            if(!shipsHaveBeenPlaced){
+                print("here")
+                aiBoard = Board().placeShipRandomly(board: aiBoard, ship: Piece.Destroyer)
+                aiBoard = Board().placeShipRandomly(board: aiBoard, ship: Piece.Submarine)
+                aiBoard = Board().placeShipRandomly(board: aiBoard, ship: Piece.AircraftCarrier)
+                aiBoard = Board().placeShipRandomly(board: aiBoard, ship: Piece.Battleship)
+                aiBoard = Board().placeShipRandomly(board: aiBoard, ship: Piece.PatrolBoat)
+                aiBoard = Board().placeShipRandomly(board: aiBoard, ship: Piece.PatrolBoat)
+                shipsHaveBeenPlaced = true
+                
+                txt.position = CGPoint(x: getBoxWidth() + 45, y: Int(view!.frame.height) - (getBoxWidth()*12)-(Int(view!.safeAreaInsets.bottom)))
+                txt.text = "Your move"
+                turn = Player.P1
+                addChild(txt)
+                
+                redrawBoard()
+            }
         }
+        
+        if(turn == Player.AI){
+            if(lastRunAt != 0 && lastRunAt + 1.0 <= currentTime){
+                if(hasAIMoved == false){
+                    self.p1Board = Board().AITakeTurn(board: self.p1Board, level: self.difficulty).board
+                    hasAIMoved = true
+                    redrawBoard()
+                }
+                
+                if(lastRunAt != 0 && lastRunAt + 2.0 <= currentTime){
+                    self.turn = Player.P1
 
+                    self.txt.text = "Your move"
+                    lastRunAt = 0
+                    hasAIMoved = false
+                    redrawBoard()
+                }
+            }else if (lastRunAt == 0){
+                lastRunAt = currentTime
+            }
+        }
     }
 }
