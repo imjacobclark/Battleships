@@ -11,7 +11,7 @@
         <!--Home View Controller-->
         <scene sceneID="cZi-K7-rgV">
             <objects>
-                <viewController id="34q-7x-UZJ" userLabel="Home View Controller" sceneMemberID="viewController">
+                <viewController id="34q-7x-UZJ" userLabel="Home View Controller" customClass="HomeViewController" customModule="Battleships" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hjB-RK-PG0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,6 +45,9 @@
                                         <buttonConfiguration key="configuration" style="gray" title="Medium">
                                             <color key="baseBackgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="BV1-FR-VrT" kind="presentation" identifier="Medium" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="GWh-aO-FQw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ygz-L0-EB9">
                                         <rect key="frame" x="0.0" y="82" width="234" height="31"/>
@@ -52,6 +55,9 @@
                                         <buttonConfiguration key="configuration" style="gray" title="Hard">
                                             <color key="baseBackgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="BV1-FR-VrT" kind="presentation" identifier="Hard" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="M2z-0s-jBR"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -92,6 +98,9 @@
             <point key="canvasLocation" x="139" y="82"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="v2V-d9-f9z"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Background" width="816" height="1088"/>
         <systemColor name="systemBackgroundColor">

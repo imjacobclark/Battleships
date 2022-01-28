@@ -18,6 +18,11 @@
 		80AE5C8E279B611900FA41BF /* BattleshipsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C8D279B611900FA41BF /* BattleshipsUITests.swift */; };
 		80AE5C90279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */; };
 		80AE5C9D279CE32900FA41BF /* CoreGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C9C279CE32900FA41BF /* CoreGame.swift */; };
+		80E55F1827A300AF00162A43 /* Boat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E55F1727A300AF00162A43 /* Boat.swift */; };
+		80E55F1A27A4427800162A43 /* BoardUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E55F1927A4427800162A43 /* BoardUI.swift */; };
+		80E55F1E27A446C300162A43 /* TurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E55F1D27A446C300162A43 /* TurnSystem.swift */; };
+		80E55F2027A44B1600162A43 /* missile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 80E55F1F27A44B1600162A43 /* missile.mp3 */; };
+		80E55F2227A44C8E00162A43 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 80E55F2127A44C8E00162A43 /* hit.mp3 */; };
 		80F3AB1E279F1212005DFE69 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3AB1D279F1212005DFE69 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +58,11 @@
 		80AE5C8D279B611900FA41BF /* BattleshipsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipsUITests.swift; sourceTree = "<group>"; };
 		80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleshipsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		80AE5C9C279CE32900FA41BF /* CoreGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGame.swift; sourceTree = "<group>"; };
+		80E55F1727A300AF00162A43 /* Boat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boat.swift; sourceTree = "<group>"; };
+		80E55F1927A4427800162A43 /* BoardUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardUI.swift; sourceTree = "<group>"; };
+		80E55F1D27A446C300162A43 /* TurnSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystem.swift; sourceTree = "<group>"; };
+		80E55F1F27A44B1600162A43 /* missile.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = missile.mp3; sourceTree = "<group>"; };
+		80E55F2127A44C8E00162A43 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
 		80EC53B5279ED6D6000DED30 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		80F3AB1D279F1212005DFE69 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,15 +116,18 @@
 		80AE5C68279B611500FA41BF /* Battleships */ = {
 			isa = PBXGroup;
 			children = (
+				80E55F1F27A44B1600162A43 /* missile.mp3 */,
+				80E55F2127A44C8E00162A43 /* hit.mp3 */,
+				80E55F1427A2FB1000162A43 /* UI */,
 				80AE5C69279B611500FA41BF /* AppDelegate.swift */,
 				80AE5C6D279B611500FA41BF /* Actions.sks */,
-				80AE5C6F279B611500FA41BF /* GameScene.swift */,
 				80AE5C71279B611500FA41BF /* GameViewController.swift */,
 				80AE5C73279B611500FA41BF /* Main.storyboard */,
 				80AE5C76279B611800FA41BF /* Assets.xcassets */,
 				80AE5C78279B611800FA41BF /* LaunchScreen.storyboard */,
 				80AE5C9C279CE32900FA41BF /* CoreGame.swift */,
 				80F3AB1D279F1212005DFE69 /* HomeViewController.swift */,
+				80E55F1D27A446C300162A43 /* TurnSystem.swift */,
 			);
 			path = Battleships;
 			sourceTree = "<group>";
@@ -134,6 +147,16 @@
 				80AE5C8F279B611900FA41BF /* BattleshipsUITestsLaunchTests.swift */,
 			);
 			path = BattleshipsUITests;
+			sourceTree = "<group>";
+		};
+		80E55F1427A2FB1000162A43 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				80AE5C6F279B611500FA41BF /* GameScene.swift */,
+				80E55F1727A300AF00162A43 /* Boat.swift */,
+				80E55F1927A4427800162A43 /* BoardUI.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +266,8 @@
 				80AE5C75279B611500FA41BF /* Main.storyboard in Resources */,
 				80AE5C77279B611800FA41BF /* Assets.xcassets in Resources */,
 				80AE5C7A279B611800FA41BF /* LaunchScreen.storyboard in Resources */,
+				80E55F2027A44B1600162A43 /* missile.mp3 in Resources */,
+				80E55F2227A44C8E00162A43 /* hit.mp3 in Resources */,
 				80AE5C6E279B611500FA41BF /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,8 +294,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F3AB1E279F1212005DFE69 /* HomeViewController.swift in Sources */,
+				80E55F1E27A446C300162A43 /* TurnSystem.swift in Sources */,
 				80AE5C9D279CE32900FA41BF /* CoreGame.swift in Sources */,
+				80E55F1A27A4427800162A43 /* BoardUI.swift in Sources */,
 				80AE5C70279B611500FA41BF /* GameScene.swift in Sources */,
+				80E55F1827A300AF00162A43 /* Boat.swift in Sources */,
 				80AE5C72279B611500FA41BF /* GameViewController.swift in Sources */,
 				80AE5C6A279B611500FA41BF /* AppDelegate.swift in Sources */,
 			);

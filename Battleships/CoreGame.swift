@@ -28,7 +28,7 @@ let Ships: [Piece:Int] = [
     Piece.Submarine: 3
 ]
 
-enum Piece {
+enum Piece: String {
     case Blank
     case PatrolBoat
     case Battleship
@@ -133,7 +133,6 @@ struct Board {
     }
     
     func strike(x: Int, y: Int, board: Array<Position>, turn: Player) -> (hit: Optional<Position>, board: Array<Position>) {
-        print(x,y)
         var board = board
         let index = 10 * y + x
         
