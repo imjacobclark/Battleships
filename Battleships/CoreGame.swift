@@ -1,10 +1,3 @@
-//
-//  CoreGame.swift
-//  Battleships
-//
-//  Created by Jacob Clark on 23/01/2022.
-//
-
 import Foundation
 import UIKit
 
@@ -92,7 +85,6 @@ struct Board {
                     }
                     
                     board[index + n] = Position(x: ship.x+n, y: ship.y, occupany: ship.occupany, player: ship.player)
-
                 }
                 
                 if(ship.orientation == Orientation.Vertical) {
@@ -125,11 +117,10 @@ struct Board {
 //        let orientation = Int.random(in: 0...1) == 0 ? Orientation.Horizontal : Orientation.Vertical
         let orientation = Orientation.Horizontal
         
-        if(position+1 > avaliablePositions.count){
+        if(position+1 > avaliablePositions.count || position > avaliablePositions.count){
             board = placeShipRandomly(board: board, ship: ship)
         }
         
-        // This can go out of range, need to catch it
         let shipCanBePlacedInThisLocation = orientation == Orientation.Horizontal && avaliablePositions[position+1].x == avaliablePositions[position].x+1
         
         if(shipCanBePlacedInThisLocation){

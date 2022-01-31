@@ -9,24 +9,33 @@ struct Boat {
         // Eesh, need to fix this...
         if(Ships[piece] == 2){
             container.position = CGPoint(x: x + (width/2), y:y)
+            container.fillTexture = SKTexture(imageNamed: "PatrolBoat")
         }
         
         if(Ships[piece] == 3){
             container.position = CGPoint(x: x + ((width/2)*2), y:y)
+            container.fillTexture = SKTexture(imageNamed: "Destroyer")
+            
+            if(piece == Piece.Submarine){
+                container.fillTexture = SKTexture(imageNamed: "Submarine")
+            }
         }
         
         if(Ships[piece] == 4){
             container.position = CGPoint(x: x + ((width/2)*3), y:y)
+            container.fillTexture = SKTexture(imageNamed: "Battleship")
+
         }
         
         if(Ships[piece] == 5){
             container.position = CGPoint(x: x + ((width/2)*4), y:y)
+            container.fillTexture = SKTexture(imageNamed: "AircraftCarrier")
         }
         
         container.name = name
         container.zPosition = 90000
-        container.fillColor = .green
-
+        container.fillColor = .white
+        container.lineWidth = 0
         return container
     }
     

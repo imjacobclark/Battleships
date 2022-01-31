@@ -190,6 +190,20 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        // Needs fixs
+//        if(!(Board().isGameWon(board: p1Board) != nil) || (Board().isGameWon(board: aiBoard) != nil)){
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "endGameView")
+//
+//            vc.view.frame = (self.view?.frame)!
+//
+//            vc.view.layoutIfNeeded()
+//
+//            UIView.transition(with: self.view!, duration: 0, options: [], animations: {
+//                self.view?.window?.rootViewController = vc
+//            })
+//        }
+
         if(Board().getPlayersShips(board: p1Board, player: Player.P1).count == 19){
             if(!shipsHaveBeenPlaced){
                 placeAIShips()

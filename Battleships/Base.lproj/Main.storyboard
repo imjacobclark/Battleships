@@ -11,7 +11,7 @@
         <!--Home View Controller-->
         <scene sceneID="cZi-K7-rgV">
             <objects>
-                <viewController id="34q-7x-UZJ" userLabel="Home View Controller" customClass="HomeViewController" customModule="Battleships" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeViewController" id="34q-7x-UZJ" userLabel="Home View Controller" customClass="HomeViewController" customModule="Battleships" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hjB-RK-PG0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -96,6 +96,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="82"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="eLK-qs-PdG">
+            <objects>
+                <viewController storyboardIdentifier="endGameView" id="8fL-Cb-6hB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="peD-bt-guL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dPm-CM-3NS">
+                                <rect key="frame" x="172" y="422.5" width="70.5" height="51.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Lost!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qi3-JL-phb">
+                                        <rect key="frame" x="0.0" y="0.0" width="70.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TN8-FO-OLO">
+                                        <rect key="frame" x="0.0" y="20.5" width="70.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Replay"/>
+                                        <connections>
+                                            <segue destination="34q-7x-UZJ" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xZ0-pj-Uhm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4mY-Jv-eB9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dPm-CM-3NS" firstAttribute="centerY" secondItem="peD-bt-guL" secondAttribute="centerY" id="tZZ-lt-M1r"/>
+                            <constraint firstItem="dPm-CM-3NS" firstAttribute="centerX" secondItem="peD-bt-guL" secondAttribute="centerX" id="tyf-IH-aLn"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GXv-Hj-eyf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1606" y="102"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

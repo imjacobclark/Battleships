@@ -24,6 +24,11 @@
 		80E55F2027A44B1600162A43 /* missile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 80E55F1F27A44B1600162A43 /* missile.mp3 */; };
 		80E55F2227A44C8E00162A43 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 80E55F2127A44C8E00162A43 /* hit.mp3 */; };
 		80F3AB1E279F1212005DFE69 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3AB1D279F1212005DFE69 /* HomeViewController.swift */; };
+		80F738B327A89AF80000980F /* PatrolBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F738B227A89AF80000980F /* PatrolBoat.png */; };
+		80F738B527A89BAB0000980F /* AircraftCarrier.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F738B427A89BAB0000980F /* AircraftCarrier.png */; };
+		80F738B727A89BDE0000980F /* Destroyer.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F738B627A89BDE0000980F /* Destroyer.png */; };
+		80F738BB27A89C150000980F /* Submarine.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F738B827A89C140000980F /* Submarine.png */; };
+		80F738BD27A89C150000980F /* Battleship.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F738BA27A89C150000980F /* Battleship.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +70,11 @@
 		80E55F2127A44C8E00162A43 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
 		80EC53B5279ED6D6000DED30 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		80F3AB1D279F1212005DFE69 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		80F738B227A89AF80000980F /* PatrolBoat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PatrolBoat.png; sourceTree = "<group>"; };
+		80F738B427A89BAB0000980F /* AircraftCarrier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AircraftCarrier.png; sourceTree = "<group>"; };
+		80F738B627A89BDE0000980F /* Destroyer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Destroyer.png; sourceTree = "<group>"; };
+		80F738B827A89C140000980F /* Submarine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submarine.png; sourceTree = "<group>"; };
+		80F738BA27A89C150000980F /* Battleship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battleship.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +128,11 @@
 			children = (
 				80E55F1F27A44B1600162A43 /* missile.mp3 */,
 				80E55F2127A44C8E00162A43 /* hit.mp3 */,
+				80F738B227A89AF80000980F /* PatrolBoat.png */,
+				80F738B427A89BAB0000980F /* AircraftCarrier.png */,
+				80F738BA27A89C150000980F /* Battleship.png */,
+				80F738B627A89BDE0000980F /* Destroyer.png */,
+				80F738B827A89C140000980F /* Submarine.png */,
 				80E55F1427A2FB1000162A43 /* UI */,
 				80AE5C69279B611500FA41BF /* AppDelegate.swift */,
 				80AE5C6D279B611500FA41BF /* Actions.sks */,
@@ -263,7 +278,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F738BB27A89C150000980F /* Submarine.png in Resources */,
+				80F738B327A89AF80000980F /* PatrolBoat.png in Resources */,
 				80AE5C75279B611500FA41BF /* Main.storyboard in Resources */,
+				80F738B727A89BDE0000980F /* Destroyer.png in Resources */,
+				80F738B527A89BAB0000980F /* AircraftCarrier.png in Resources */,
+				80F738BD27A89C150000980F /* Battleship.png in Resources */,
 				80AE5C77279B611800FA41BF /* Assets.xcassets in Resources */,
 				80AE5C7A279B611800FA41BF /* LaunchScreen.storyboard in Resources */,
 				80E55F2027A44B1600162A43 /* missile.mp3 in Resources */,
