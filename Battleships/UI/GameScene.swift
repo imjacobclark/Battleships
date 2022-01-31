@@ -190,7 +190,6 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Needs fixs
 //        if(!(Board().isGameWon(board: p1Board) != nil) || (Board().isGameWon(board: aiBoard) != nil)){
 //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //            let vc = storyboard.instantiateViewController(withIdentifier: "endGameView")

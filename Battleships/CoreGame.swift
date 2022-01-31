@@ -149,7 +149,7 @@ struct Board {
         return board.filter { position in
             position.occupany != Piece.Blank && position.player == player
         }.filter { position in
-            position.destroyed == false
+            position.destroyed == true
         }
     }
     
@@ -160,9 +160,9 @@ struct Board {
     }
     
     func isGameWon(board: Array<Position>) -> Optional<Player> {
-        let hasP1Won = getPlayersDestroyedShips(board: board, player: Player.P1).count == 0
-        let hasAIWon = getPlayersDestroyedShips(board: board, player: Player.AI).count == 0
-        
+        let hasP1Won = getPlayersDestroyedShips(board: board, player: Player.P1).count == 16
+        let hasAIWon = getPlayersDestroyedShips(board: board, player: Player.AI).count == 16
+
         if(hasAIWon) { return Optional.some(Player.AI) }
         if(hasP1Won) { return Optional.some(Player.P1) }
             
