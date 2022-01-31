@@ -78,7 +78,7 @@ struct Board {
         return positions;
     }
     
-    func placeShip(board: Array<Position>, ship: Position) -> Array<Position> {
+    func placeShip(board: Array<Position>, ship: Position) -> Optional<Array<Position>> {
         var board = board
         let index = 10 * ship.y + ship.x
         
@@ -87,7 +87,12 @@ struct Board {
         if((ship.orientation == Orientation.Horizontal && ship.x + length-1 <= 9) || (ship.orientation == Orientation.Vertical && ship.y + length-1 <= 9)){
             for n in 0..<length {
                 if(ship.orientation == Orientation.Horizontal) {
+                    if(index+n > board.count){
+                        return Optional.none
+                    }
+                    
                     board[index + n] = Position(x: ship.x+n, y: ship.y, occupany: ship.occupany, player: ship.player)
+
                 }
                 
                 if(ship.orientation == Orientation.Vertical) {
@@ -96,7 +101,7 @@ struct Board {
             }
         }
         
-        return board
+        return Optional.some(board)
     }
     
     func getAvaliablePositions(board: Array<Position>) -> Array<Position> {
@@ -120,11 +125,15 @@ struct Board {
 //        let orientation = Int.random(in: 0...1) == 0 ? Orientation.Horizontal : Orientation.Vertical
         let orientation = Orientation.Horizontal
         
+        if(position+1 > avaliablePositions.count){
+            board = placeShipRandomly(board: board, ship: ship)
+        }
+        
         // This can go out of range, need to catch it
         let shipCanBePlacedInThisLocation = orientation == Orientation.Horizontal && avaliablePositions[position+1].x == avaliablePositions[position].x+1
         
         if(shipCanBePlacedInThisLocation){
-            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship, player: Player.AI))
+            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship, player: Player.AI))!
         } else {
             board = placeShipRandomly(board: board, ship: ship)
         }

@@ -72,7 +72,7 @@ class GameScene: SKScene {
         
         for (index, piece) in Boat().getStandardPlayableBoats().enumerated() {
             let name = piece.piece.rawValue + String(piece.number)
-            addChild(Boat().generateBoat(x: width + 15, y: Int(view.frame.height) - (width*(12+index))-(Int(view.safeAreaInsets.bottom)), piece: piece.piece, width: width, name: name))
+            addChild(Boat().generateBoat(x: width, y: Int(view.frame.height) - (width*(12+index))-(Int(view.safeAreaInsets.bottom)), piece: piece.piece, width: width, name: name))
             
             shipsToBeDeployed[name] = MovablePiece(name: name, piece: piece.piece, occupancy: Ships[piece.piece]!)
         }
@@ -112,7 +112,7 @@ class GameScene: SKScene {
                     let yPadding = Int(view.frame.height) - (width*10)-(Int(view.safeAreaInsets.bottom))
                     let mapToPrimitiveYPosition = abs((yPadding + ((((Int(yPositionToMoveTo) / width) - yPadding) - width)) + 16))
                     
-                    let mapToPrimitiveXPosition = (xPositionToMoveTo - width) / width
+                    let mapToPrimitiveXPosition = (xPositionToMoveTo - width + (width/2)) / width
                                     
                     let strike = Board().strike(x: mapToPrimitiveXPosition, y: mapToPrimitiveYPosition, board: aiBoard, turn: Player.P1)
                     
@@ -131,7 +131,6 @@ class GameScene: SKScene {
                                     self.redrawBoard()
                                 }]),
                         count: 1))
-
                 }
             }
         }
@@ -160,9 +159,11 @@ class GameScene: SKScene {
             let xPositionToMoveTo = Int(location.x) + Int(movableNodeStartX)
             let mapToPrimitiveXPosition = (xPositionToMoveTo - width - (width / 2) ) / width
             
-            p1Board = Board().placeShip(board: p1Board, ship: Position(x: mapToPrimitiveXPosition, y: mapToPrimitiveYPosition, occupany: shipsToBeDeployed[movableNode!.name!]!.piece, player: Player.P1))
+            if let board = Board().placeShip(board: p1Board, ship: Position(x: mapToPrimitiveXPosition, y: mapToPrimitiveYPosition, occupany: shipsToBeDeployed[movableNode!.name!]!.piece, player: Player.P1)) {
+                p1Board = board
+                movableNode?.isHidden = true
+            }
                         
-            movableNode?.isHidden = true
         }
         
         movableNode = nil
@@ -219,6 +220,5 @@ class GameScene: SKScene {
         }
         
         redrawBoard()
-
     }
 }

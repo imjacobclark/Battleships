@@ -3,23 +3,30 @@ import SpriteKit
 
 struct Boat {
     func generateBoat(x: Int, y: Int, piece: Piece, width: Int, name: String) -> SKShapeNode {
-        let sizeOfShipTilesToContain = 2
+        let sizeOfShipTilesToContain = Ships[piece]!
         let container = SKShapeNode.init(rectOf: CGSize.init(width: width * sizeOfShipTilesToContain, height: width))
-        var xPosition = -(width/2)
 
-        container.position = CGPoint(x: x, y:y)
+        // Eesh, need to fix this...
+        if(Ships[piece] == 2){
+            container.position = CGPoint(x: x + (width/2), y:y)
+        }
+        
+        if(Ships[piece] == 3){
+            container.position = CGPoint(x: x + ((width/2)*2), y:y)
+        }
+        
+        if(Ships[piece] == 4){
+            container.position = CGPoint(x: x + ((width/2)*3), y:y)
+        }
+        
+        if(Ships[piece] == 5){
+            container.position = CGPoint(x: x + ((width/2)*4), y:y)
+        }
+        
         container.name = name
         container.zPosition = 90000
-        
-        for _ in 0..<Ships[piece]! {
-            let b = SKShapeNode.init(rectOf: CGSize.init(width: width-2, height: width-2))
-            b.fillColor = SKColor.green
-            b.position = CGPoint(x: xPosition, y: 0)
-            container.addChild(b)
+        container.fillColor = .green
 
-            xPosition = xPosition + width
-        }
-                
         return container
     }
     
