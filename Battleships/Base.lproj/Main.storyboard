@@ -33,6 +33,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="234" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Easy">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="baseBackgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -43,6 +44,7 @@
                                         <rect key="frame" x="0.0" y="41" width="234" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Medium">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="baseBackgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -53,6 +55,7 @@
                                         <rect key="frame" x="0.0" y="82" width="234" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Hard">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="baseBackgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -97,41 +100,61 @@
             </objects>
             <point key="canvasLocation" x="139" y="82"/>
         </scene>
-        <!--View Controller-->
+        <!--End Game View Controller-->
         <scene sceneID="eLK-qs-PdG">
             <objects>
-                <viewController storyboardIdentifier="endGameView" id="8fL-Cb-6hB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="endGameView" id="8fL-Cb-6hB" customClass="EndGameViewController" customModule="Battleships" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="peD-bt-guL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dPm-CM-3NS">
-                                <rect key="frame" x="172" y="422.5" width="70.5" height="51.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="ilG-xb-I9w">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dPm-CM-3NS">
+                                <rect key="frame" x="30" y="404.5" width="354" height="87"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Lost!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qi3-JL-phb">
-                                        <rect key="frame" x="0.0" y="0.0" width="70.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Lost!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qi3-JL-phb">
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="30"/>
+                                        <color key="textColor" systemColor="systemGroupedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TN8-FO-OLO">
-                                        <rect key="frame" x="0.0" y="20.5" width="70.5" height="31"/>
+                                        <rect key="frame" x="0.0" y="56" width="354" height="31"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title="Replay"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Replay">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="baseBackgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <segue destination="34q-7x-UZJ" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xZ0-pj-Uhm"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="qi3-JL-phb" firstAttribute="centerX" secondItem="dPm-CM-3NS" secondAttribute="centerX" id="Kuy-3X-Vci"/>
+                                    <constraint firstItem="TN8-FO-OLO" firstAttribute="centerX" secondItem="dPm-CM-3NS" secondAttribute="centerX" id="lvU-yx-cqb"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4mY-Jv-eB9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4mY-Jv-eB9" firstAttribute="trailing" secondItem="dPm-CM-3NS" secondAttribute="trailing" constant="30" id="99D-Jf-ckz"/>
+                            <constraint firstItem="ilG-xb-I9w" firstAttribute="trailing" secondItem="4mY-Jv-eB9" secondAttribute="trailing" id="ERd-Cl-cdu"/>
+                            <constraint firstItem="ilG-xb-I9w" firstAttribute="leading" secondItem="4mY-Jv-eB9" secondAttribute="leading" id="SSX-nB-a20"/>
+                            <constraint firstItem="ilG-xb-I9w" firstAttribute="top" secondItem="peD-bt-guL" secondAttribute="top" id="jjD-N3-LNe"/>
+                            <constraint firstItem="dPm-CM-3NS" firstAttribute="leading" secondItem="4mY-Jv-eB9" secondAttribute="leading" constant="30" id="r1K-sD-9An"/>
+                            <constraint firstAttribute="bottom" secondItem="ilG-xb-I9w" secondAttribute="bottom" id="rij-kI-Erm"/>
                             <constraint firstItem="dPm-CM-3NS" firstAttribute="centerY" secondItem="peD-bt-guL" secondAttribute="centerY" id="tZZ-lt-M1r"/>
                             <constraint firstItem="dPm-CM-3NS" firstAttribute="centerX" secondItem="peD-bt-guL" secondAttribute="centerX" id="tyf-IH-aLn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="winnerLabel" destination="qi3-JL-phb" id="oBz-UL-fl3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXv-Hj-eyf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -143,8 +166,14 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Background" width="816" height="1088"/>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

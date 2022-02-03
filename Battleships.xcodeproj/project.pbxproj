@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		803869F727AC9211002B9D17 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803869F627AC9211002B9D17 /* EndGameViewController.swift */; };
+		803869FA27AC98A0002B9D17 /* PatrolBoat0.png in Resources */ = {isa = PBXBuildFile; fileRef = 803869F827AC98A0002B9D17 /* PatrolBoat0.png */; };
+		803869FB27AC98A0002B9D17 /* PatrolBoat1.png in Resources */ = {isa = PBXBuildFile; fileRef = 803869F927AC98A0002B9D17 /* PatrolBoat1.png */; };
+		803869FF27AC9A15002B9D17 /* Submarine2.png in Resources */ = {isa = PBXBuildFile; fileRef = 803869FC27AC9A14002B9D17 /* Submarine2.png */; };
+		80386A0027AC9A15002B9D17 /* Submarine0.png in Resources */ = {isa = PBXBuildFile; fileRef = 803869FD27AC9A15002B9D17 /* Submarine0.png */; };
+		80386A0127AC9A15002B9D17 /* Submarine1.png in Resources */ = {isa = PBXBuildFile; fileRef = 803869FE27AC9A15002B9D17 /* Submarine1.png */; };
+		80386A0527AC9C98002B9D17 /* Destroyer0.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0227AC9C98002B9D17 /* Destroyer0.png */; };
+		80386A0627AC9C98002B9D17 /* Destroyer1.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0327AC9C98002B9D17 /* Destroyer1.png */; };
+		80386A0727AC9C98002B9D17 /* Destroyer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0427AC9C98002B9D17 /* Destroyer2.png */; };
+		80386A0C27AC9CF0002B9D17 /* Battleship1.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0827AC9CEF002B9D17 /* Battleship1.png */; };
+		80386A0D27AC9CF0002B9D17 /* Battleship0.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0927AC9CF0002B9D17 /* Battleship0.png */; };
+		80386A0E27AC9CF0002B9D17 /* Battleship2.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0A27AC9CF0002B9D17 /* Battleship2.png */; };
+		80386A0F27AC9CF0002B9D17 /* Battleship3.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A0B27AC9CF0002B9D17 /* Battleship3.png */; };
+		80386A1527AC9DB3002B9D17 /* AircraftCarrier3.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A1027AC9DB3002B9D17 /* AircraftCarrier3.png */; };
+		80386A1627AC9DB3002B9D17 /* AircraftCarrier1.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A1127AC9DB3002B9D17 /* AircraftCarrier1.png */; };
+		80386A1727AC9DB3002B9D17 /* AircraftCarrier2.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A1227AC9DB3002B9D17 /* AircraftCarrier2.png */; };
+		80386A1827AC9DB3002B9D17 /* AircraftCarrier0.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A1327AC9DB3002B9D17 /* AircraftCarrier0.png */; };
+		80386A1927AC9DB3002B9D17 /* AircraftCarrier4.png in Resources */ = {isa = PBXBuildFile; fileRef = 80386A1427AC9DB3002B9D17 /* AircraftCarrier4.png */; };
 		80AE5C6A279B611500FA41BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C69279B611500FA41BF /* AppDelegate.swift */; };
 		80AE5C6E279B611500FA41BF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 80AE5C6D279B611500FA41BF /* Actions.sks */; };
 		80AE5C70279B611500FA41BF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE5C6F279B611500FA41BF /* GameScene.swift */; };
@@ -49,6 +67,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		803869F627AC9211002B9D17 /* EndGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameViewController.swift; sourceTree = "<group>"; };
+		803869F827AC98A0002B9D17 /* PatrolBoat0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PatrolBoat0.png; sourceTree = "<group>"; };
+		803869F927AC98A0002B9D17 /* PatrolBoat1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PatrolBoat1.png; sourceTree = "<group>"; };
+		803869FC27AC9A14002B9D17 /* Submarine2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submarine2.png; sourceTree = "<group>"; };
+		803869FD27AC9A15002B9D17 /* Submarine0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submarine0.png; sourceTree = "<group>"; };
+		803869FE27AC9A15002B9D17 /* Submarine1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submarine1.png; sourceTree = "<group>"; };
+		80386A0227AC9C98002B9D17 /* Destroyer0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Destroyer0.png; sourceTree = "<group>"; };
+		80386A0327AC9C98002B9D17 /* Destroyer1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Destroyer1.png; sourceTree = "<group>"; };
+		80386A0427AC9C98002B9D17 /* Destroyer2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Destroyer2.png; sourceTree = "<group>"; };
+		80386A0827AC9CEF002B9D17 /* Battleship1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battleship1.png; sourceTree = "<group>"; };
+		80386A0927AC9CF0002B9D17 /* Battleship0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battleship0.png; sourceTree = "<group>"; };
+		80386A0A27AC9CF0002B9D17 /* Battleship2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battleship2.png; sourceTree = "<group>"; };
+		80386A0B27AC9CF0002B9D17 /* Battleship3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battleship3.png; sourceTree = "<group>"; };
+		80386A1027AC9DB3002B9D17 /* AircraftCarrier3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AircraftCarrier3.png; sourceTree = "<group>"; };
+		80386A1127AC9DB3002B9D17 /* AircraftCarrier1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AircraftCarrier1.png; sourceTree = "<group>"; };
+		80386A1227AC9DB3002B9D17 /* AircraftCarrier2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AircraftCarrier2.png; sourceTree = "<group>"; };
+		80386A1327AC9DB3002B9D17 /* AircraftCarrier0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AircraftCarrier0.png; sourceTree = "<group>"; };
+		80386A1427AC9DB3002B9D17 /* AircraftCarrier4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AircraftCarrier4.png; sourceTree = "<group>"; };
 		80AE5C66279B611500FA41BF /* Battleships.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleships.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AE5C69279B611500FA41BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80AE5C6D279B611500FA41BF /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -129,6 +165,23 @@
 				80E55F1F27A44B1600162A43 /* missile.mp3 */,
 				80E55F2127A44C8E00162A43 /* hit.mp3 */,
 				80F738B227A89AF80000980F /* PatrolBoat.png */,
+				803869F827AC98A0002B9D17 /* PatrolBoat0.png */,
+				803869F927AC98A0002B9D17 /* PatrolBoat1.png */,
+				803869FD27AC9A15002B9D17 /* Submarine0.png */,
+				803869FE27AC9A15002B9D17 /* Submarine1.png */,
+				803869FC27AC9A14002B9D17 /* Submarine2.png */,
+				80386A0227AC9C98002B9D17 /* Destroyer0.png */,
+				80386A1327AC9DB3002B9D17 /* AircraftCarrier0.png */,
+				80386A1127AC9DB3002B9D17 /* AircraftCarrier1.png */,
+				80386A1227AC9DB3002B9D17 /* AircraftCarrier2.png */,
+				80386A1027AC9DB3002B9D17 /* AircraftCarrier3.png */,
+				80386A1427AC9DB3002B9D17 /* AircraftCarrier4.png */,
+				80386A0327AC9C98002B9D17 /* Destroyer1.png */,
+				80386A0927AC9CF0002B9D17 /* Battleship0.png */,
+				80386A0827AC9CEF002B9D17 /* Battleship1.png */,
+				80386A0A27AC9CF0002B9D17 /* Battleship2.png */,
+				80386A0B27AC9CF0002B9D17 /* Battleship3.png */,
+				80386A0427AC9C98002B9D17 /* Destroyer2.png */,
 				80F738B427A89BAB0000980F /* AircraftCarrier.png */,
 				80F738BA27A89C150000980F /* Battleship.png */,
 				80F738B627A89BDE0000980F /* Destroyer.png */,
@@ -143,6 +196,7 @@
 				80AE5C9C279CE32900FA41BF /* CoreGame.swift */,
 				80F3AB1D279F1212005DFE69 /* HomeViewController.swift */,
 				80E55F1D27A446C300162A43 /* TurnSystem.swift */,
+				803869F627AC9211002B9D17 /* EndGameViewController.swift */,
 			);
 			path = Battleships;
 			sourceTree = "<group>";
@@ -278,17 +332,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80386A0E27AC9CF0002B9D17 /* Battleship2.png in Resources */,
+				803869FF27AC9A15002B9D17 /* Submarine2.png in Resources */,
 				80F738BB27A89C150000980F /* Submarine.png in Resources */,
+				80386A0727AC9C98002B9D17 /* Destroyer2.png in Resources */,
 				80F738B327A89AF80000980F /* PatrolBoat.png in Resources */,
 				80AE5C75279B611500FA41BF /* Main.storyboard in Resources */,
 				80F738B727A89BDE0000980F /* Destroyer.png in Resources */,
+				80386A0527AC9C98002B9D17 /* Destroyer0.png in Resources */,
+				80386A0C27AC9CF0002B9D17 /* Battleship1.png in Resources */,
+				80386A0D27AC9CF0002B9D17 /* Battleship0.png in Resources */,
 				80F738B527A89BAB0000980F /* AircraftCarrier.png in Resources */,
+				803869FB27AC98A0002B9D17 /* PatrolBoat1.png in Resources */,
 				80F738BD27A89C150000980F /* Battleship.png in Resources */,
+				80386A0127AC9A15002B9D17 /* Submarine1.png in Resources */,
+				803869FA27AC98A0002B9D17 /* PatrolBoat0.png in Resources */,
 				80AE5C77279B611800FA41BF /* Assets.xcassets in Resources */,
+				80386A0F27AC9CF0002B9D17 /* Battleship3.png in Resources */,
+				80386A1727AC9DB3002B9D17 /* AircraftCarrier2.png in Resources */,
+				80386A1627AC9DB3002B9D17 /* AircraftCarrier1.png in Resources */,
+				80386A0027AC9A15002B9D17 /* Submarine0.png in Resources */,
 				80AE5C7A279B611800FA41BF /* LaunchScreen.storyboard in Resources */,
 				80E55F2027A44B1600162A43 /* missile.mp3 in Resources */,
+				80386A1827AC9DB3002B9D17 /* AircraftCarrier0.png in Resources */,
+				80386A1927AC9DB3002B9D17 /* AircraftCarrier4.png in Resources */,
 				80E55F2227A44C8E00162A43 /* hit.mp3 in Resources */,
 				80AE5C6E279B611500FA41BF /* Actions.sks in Resources */,
+				80386A1527AC9DB3002B9D17 /* AircraftCarrier3.png in Resources */,
+				80386A0627AC9C98002B9D17 /* Destroyer1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +392,7 @@
 				80E55F1827A300AF00162A43 /* Boat.swift in Sources */,
 				80AE5C72279B611500FA41BF /* GameViewController.swift in Sources */,
 				80AE5C6A279B611500FA41BF /* AppDelegate.swift in Sources */,
+				803869F727AC9211002B9D17 /* EndGameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,15 +12,15 @@ class GameScene: SKScene {
     var aiBoard = Board().generateBoard()
     
     var difficulty = Level.Easy
-    var turn = Player.None
+
     var boardTileNodes: Array<SKShapeNode> = []
     var movableNode : SKNode?
     var movableNodeStartX: CGFloat = 0.0
     var movableNodeStartY: CGFloat = 0.0
     var shipsToBeDeployed: [String:MovablePiece] = [:]
     var shipsHaveBeenPlaced = false
-    var lastRunAt: Double = 0.0
-    var hasAIMoved = false
+    
+    var turnSystem = TurnSystem()
         
     func drawBoard(){
         let width = getBoxWidth()
@@ -30,15 +30,16 @@ class GameScene: SKScene {
         
         var board = p1Board
         
-        if(turn == Player.P1){
+        if(turnSystem.turn == Player.P1){
             board = aiBoard
         }
         
-        for (_, position) in board.enumerated() {
+        for (i, position) in board.enumerated() {
             var x = SKShapeNode.init(rectOf: CGSize.init(width: width, height: width))
             x.name = "T" + String(position.x) + "," + String(position.y)
-
-            x = BoardUI().determineTileColour(position: position, tile: x)
+            
+            let spriteIndex = BoardUI().determineSpriteIndex(currentPosition: position, board: board, i: i-1, accumulator: 0)
+            x = BoardUI().determineTileColour(position: position, tile: x, spriteIndex: spriteIndex)
             
             let xPosition = (width * position.x) + width
             
@@ -99,7 +100,7 @@ class GameScene: SKScene {
         
 
         boardTileNodes.forEach { sprite in
-            if(turn != Player.P1){
+            if(turnSystem.turn != Player.P1){
                 return
             }
             
@@ -127,7 +128,7 @@ class GameScene: SKScene {
                                 },
                                 SKAction.wait(forDuration: 1),
                                 SKAction.run {
-                                    self.turn = Player.AI
+                                    self.turnSystem.turn = Player.AI
                                     self.redrawBoard()
                                 }]),
                         count: 1))
@@ -184,24 +185,30 @@ class GameScene: SKScene {
         })
         
         shipsHaveBeenPlaced = true
-        turn = Player.P1
+        turnSystem.turn = Player.P1
         
         redrawBoard()
     }
     
     override func update(_ currentTime: TimeInterval) {
-//        if(!(Board().isGameWon(board: p1Board) != nil) || (Board().isGameWon(board: aiBoard) != nil)){
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewController(withIdentifier: "endGameView")
-//
-//            vc.view.frame = (self.view?.frame)!
-//
-//            vc.view.layoutIfNeeded()
-//
-//            UIView.transition(with: self.view!, duration: 0, options: [], animations: {
-//                self.view?.window?.rootViewController = vc
-//            })
-//        }
+
+        let isGameWon = Board().isGameWon(p1Board: p1Board, aiBoard: aiBoard)
+        if(isGameWon != Optional.none){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc: EndGameViewController = storyboard.instantiateViewController(withIdentifier: "endGameView") as! EndGameViewController
+            
+            if let winner = isGameWon {
+                vc.winner = winner == Player.P1 ? Player.P1 : Player.AI
+            }
+            
+            vc.view.frame = (self.view?.frame)!
+
+            vc.view.layoutIfNeeded()
+
+            UIView.transition(with: self.view!, duration: 0, options: [], animations: {
+                self.view?.window?.rootViewController = vc
+            })
+        }
 
         if(Board().getPlayersShips(board: p1Board, player: Player.P1).count == 19){
             if(!shipsHaveBeenPlaced){
@@ -209,28 +216,7 @@ class GameScene: SKScene {
             }
         }
         
-        if(turn == Player.AI){
-            if(lastRunAt != 0 && lastRunAt + 1.0 <= currentTime){
-                if(hasAIMoved == false){
-                    print(difficulty)
-                    let strike = Board().AITakeTurn(board: self.p1Board, level: self.difficulty)
-                    p1Board = strike.board
-                    
-                    run(SKAction.playSoundFileNamed("missile.mp3", waitForCompletion: false))
-    
-                    hasAIMoved = true
-                }
-                
-                if(lastRunAt != 0 && lastRunAt + 2.0 <= currentTime){
-                    self.turn = Player.P1
-
-                    lastRunAt = 0
-                    hasAIMoved = false
-                }
-            }else if (lastRunAt == 0){
-                lastRunAt = currentTime
-            }
-        }
+        p1Board = turnSystem.AITakeTurn(currentTime: currentTime, p1Board: p1Board, difficulty: difficulty, run: run)
         
         redrawBoard()
     }

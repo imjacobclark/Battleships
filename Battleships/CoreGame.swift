@@ -159,12 +159,24 @@ struct Board {
         }
     }
     
-    func isGameWon(board: Array<Position>) -> Optional<Player> {
-        let hasP1Won = getPlayersDestroyedShips(board: board, player: Player.P1).count == 16
-        let hasAIWon = getPlayersDestroyedShips(board: board, player: Player.AI).count == 16
-
-        if(hasAIWon) { return Optional.some(Player.AI) }
-        if(hasP1Won) { return Optional.some(Player.P1) }
+    func isGameWon(p1Board: Array<Position>, aiBoard: Array<Position>) -> Optional<Player> {
+        let AIHasWon = p1Board.filter { position in
+            position.occupany != Piece.Blank &&
+            position.destroyed == true
+        }.count == 19
+        
+        let P1HasWon = aiBoard.filter { position in
+            position.occupany != Piece.Blank &&
+            position.destroyed == true
+        }.count == 19
+        
+        if(P1HasWon) {
+            return Optional.some(Player.P1)
+        }
+        
+        if(AIHasWon) {
+            return Optional.some(Player.AI)
+        }
             
         return Optional.none
     }
