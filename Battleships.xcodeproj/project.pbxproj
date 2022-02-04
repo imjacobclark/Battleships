@@ -138,6 +138,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80386A1A27ACA4F0002B9D17 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				80F738B227A89AF80000980F /* PatrolBoat.png */,
+				803869F827AC98A0002B9D17 /* PatrolBoat0.png */,
+				803869F927AC98A0002B9D17 /* PatrolBoat1.png */,
+				803869FD27AC9A15002B9D17 /* Submarine0.png */,
+				803869FE27AC9A15002B9D17 /* Submarine1.png */,
+				803869FC27AC9A14002B9D17 /* Submarine2.png */,
+				80386A0227AC9C98002B9D17 /* Destroyer0.png */,
+				80386A1327AC9DB3002B9D17 /* AircraftCarrier0.png */,
+				80386A1127AC9DB3002B9D17 /* AircraftCarrier1.png */,
+				80386A1227AC9DB3002B9D17 /* AircraftCarrier2.png */,
+				80386A1027AC9DB3002B9D17 /* AircraftCarrier3.png */,
+				80386A1427AC9DB3002B9D17 /* AircraftCarrier4.png */,
+				80386A0327AC9C98002B9D17 /* Destroyer1.png */,
+				80386A0927AC9CF0002B9D17 /* Battleship0.png */,
+				80386A0827AC9CEF002B9D17 /* Battleship1.png */,
+				80386A0A27AC9CF0002B9D17 /* Battleship2.png */,
+				80386A0B27AC9CF0002B9D17 /* Battleship3.png */,
+				80386A0427AC9C98002B9D17 /* Destroyer2.png */,
+				80F738B427A89BAB0000980F /* AircraftCarrier.png */,
+				80F738BA27A89C150000980F /* Battleship.png */,
+				80F738B627A89BDE0000980F /* Destroyer.png */,
+				80F738B827A89C140000980F /* Submarine.png */,
+			);
+			path = Sprites;
+			sourceTree = "<group>";
+		};
+		80386A1B27ACA536002B9D17 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				80E55F1F27A44B1600162A43 /* missile.mp3 */,
+				80E55F2127A44C8E00162A43 /* hit.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		80386A1C27ACA540002B9D17 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				80AE5C9C279CE32900FA41BF /* CoreGame.swift */,
+				80E55F1D27A446C300162A43 /* TurnSystem.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		80386A1D27ACA547002B9D17 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				80AE5C71279B611500FA41BF /* GameViewController.swift */,
+				80F3AB1D279F1212005DFE69 /* HomeViewController.swift */,
+				803869F627AC9211002B9D17 /* EndGameViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		80AE5C5D279B611500FA41BF = {
 			isa = PBXGroup;
 			children = (
@@ -162,41 +219,16 @@
 		80AE5C68279B611500FA41BF /* Battleships */ = {
 			isa = PBXGroup;
 			children = (
-				80E55F1F27A44B1600162A43 /* missile.mp3 */,
-				80E55F2127A44C8E00162A43 /* hit.mp3 */,
-				80F738B227A89AF80000980F /* PatrolBoat.png */,
-				803869F827AC98A0002B9D17 /* PatrolBoat0.png */,
-				803869F927AC98A0002B9D17 /* PatrolBoat1.png */,
-				803869FD27AC9A15002B9D17 /* Submarine0.png */,
-				803869FE27AC9A15002B9D17 /* Submarine1.png */,
-				803869FC27AC9A14002B9D17 /* Submarine2.png */,
-				80386A0227AC9C98002B9D17 /* Destroyer0.png */,
-				80386A1327AC9DB3002B9D17 /* AircraftCarrier0.png */,
-				80386A1127AC9DB3002B9D17 /* AircraftCarrier1.png */,
-				80386A1227AC9DB3002B9D17 /* AircraftCarrier2.png */,
-				80386A1027AC9DB3002B9D17 /* AircraftCarrier3.png */,
-				80386A1427AC9DB3002B9D17 /* AircraftCarrier4.png */,
-				80386A0327AC9C98002B9D17 /* Destroyer1.png */,
-				80386A0927AC9CF0002B9D17 /* Battleship0.png */,
-				80386A0827AC9CEF002B9D17 /* Battleship1.png */,
-				80386A0A27AC9CF0002B9D17 /* Battleship2.png */,
-				80386A0B27AC9CF0002B9D17 /* Battleship3.png */,
-				80386A0427AC9C98002B9D17 /* Destroyer2.png */,
-				80F738B427A89BAB0000980F /* AircraftCarrier.png */,
-				80F738BA27A89C150000980F /* Battleship.png */,
-				80F738B627A89BDE0000980F /* Destroyer.png */,
-				80F738B827A89C140000980F /* Submarine.png */,
+				80386A1D27ACA547002B9D17 /* ViewControllers */,
+				80386A1C27ACA540002B9D17 /* Engine */,
+				80386A1B27ACA536002B9D17 /* Sounds */,
+				80386A1A27ACA4F0002B9D17 /* Sprites */,
 				80E55F1427A2FB1000162A43 /* UI */,
 				80AE5C69279B611500FA41BF /* AppDelegate.swift */,
 				80AE5C6D279B611500FA41BF /* Actions.sks */,
-				80AE5C71279B611500FA41BF /* GameViewController.swift */,
 				80AE5C73279B611500FA41BF /* Main.storyboard */,
 				80AE5C76279B611800FA41BF /* Assets.xcassets */,
 				80AE5C78279B611800FA41BF /* LaunchScreen.storyboard */,
-				80AE5C9C279CE32900FA41BF /* CoreGame.swift */,
-				80F3AB1D279F1212005DFE69 /* HomeViewController.swift */,
-				80E55F1D27A446C300162A43 /* TurnSystem.swift */,
-				803869F627AC9211002B9D17 /* EndGameViewController.swift */,
 			);
 			path = Battleships;
 			sourceTree = "<group>";
