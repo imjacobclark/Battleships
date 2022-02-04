@@ -108,13 +108,12 @@ struct Board {
         }
     }
     
-    // Curently only placing Horizontal ships
+    // Only horizontal placement of ships is implemented presently
     func placeShipRandomly(board: Array<Position>, ship: Piece) -> Array<Position> {
         var board = board
         let avaliablePositions = getAvaliablePositions(board: board)
         
         let position = Int.random(in: 1..<avaliablePositions.count)
-//        let orientation = Int.random(in: 0...1) == 0 ? Orientation.Horizontal : Orientation.Vertical
         let orientation = Orientation.Horizontal
         
         if(position+1 > avaliablePositions.count || position > avaliablePositions.count){
@@ -159,22 +158,17 @@ struct Board {
         }
     }
     
+    func areAllShipsDestroyedOnBoard(board: Array<Position>) -> Bool {
+        return board.filter { position in
+            position.occupany != Piece.Blank &&
+            position.destroyed == true
+        }.count == 19
+    }
+    
     func isGameWon(p1Board: Array<Position>, aiBoard: Array<Position>) -> Optional<Player> {
-        let AIHasWon = p1Board.filter { position in
-            position.occupany != Piece.Blank &&
-            position.destroyed == true
-        }.count == 19
-        
-        let P1HasWon = aiBoard.filter { position in
-            position.occupany != Piece.Blank &&
-            position.destroyed == true
-        }.count == 19
-        
-        if(P1HasWon) {
+        if(areAllShipsDestroyedOnBoard(board: aiBoard)) {
             return Optional.some(Player.P1)
-        }
-        
-        if(AIHasWon) {
+        }else if(areAllShipsDestroyedOnBoard(board: p1Board)) {
             return Optional.some(Player.AI)
         }
             
@@ -185,14 +179,15 @@ struct Board {
         let avaliablePositions = getAvaliablePositions(board: board).filter { Position in
             Position.destroyed == false
         }
+        
         let occupiedPositions = getOccupiedPositions(board: board).filter { Position in
             Position.player != Player.AI
         }
                 
-        let d = Float.random(in: 0..<1)
+        let randomNumberBetween0And1 = Float.random(in: 0..<1)
         var position = 0
         
-        if (d < DifficultyProbabilities[level]!){
+        if (randomNumberBetween0And1 < DifficultyProbabilities[level]!){
             position = Int.random(in: 0..<occupiedPositions.count)
             return strike(x: occupiedPositions[position].x, y: occupiedPositions[position].y, board: board, turn: Player.AI)
         }else{
