@@ -27,8 +27,12 @@ struct BoardUI {
     func determineTileColour(position: Position, tile: SKShapeNode, spriteIndex: Int) -> SKShapeNode {
         var tile = tile
         
-        if(position.destroyed && position.player != Player.None){
+        if(position.destroyed && position.player == Player.P1){
             tile = destroyedTileWithShipBlend(tile: mapTileToSprite(position: position, tile: tile, spriteIndex: spriteIndex))
+        }else if(position.destroyed && position.player == Player.AI){
+            tile.blendMode = SKBlendMode.alpha
+            tile.alpha = 0.5
+            tile.fillColor = .red
         }else if(position.destroyed && position.player == Player.None){
             tile.fillColor = SKColor.lightGray
         }else if(position.occupany == Piece.Blank){

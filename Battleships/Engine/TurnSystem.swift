@@ -27,7 +27,6 @@ struct TurnSystem {
                     hasAIMoved = false
                 }
             }else if (lastRunAt == 0){
-                print("here lra")
                 lastRunAt = currentTime
             }
         }

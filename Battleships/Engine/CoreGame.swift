@@ -76,6 +76,10 @@ struct Board {
         let index = 10 * ship.y + ship.x
         
         let length = Ships[ship.occupany] ?? 0
+
+        if(!self.canShipBePlacedInLocation(board: board, ship: ship, x: index, i: 0)){
+            return Optional.none
+        }
                 
         if((ship.orientation == Orientation.Horizontal && ship.x + length-1 <= 9) || (ship.orientation == Orientation.Vertical && ship.y + length-1 <= 9)){
             for n in 0..<length {
@@ -105,6 +109,20 @@ struct Board {
     func getOccupiedPositions(board: Array<Position>) -> Array<Position> {
         return board.filter { Position in
             Position.occupany != Piece.Blank
+        }
+    }
+    
+    func canShipBePlacedInLocation(board: Array<Position>, ship: Position, x: Int, i: Int) -> Bool {        
+        let position = board[x+i]
+        
+        if(position.occupany == Piece.Blank){
+            if(i == Ships[ship.occupany]! - 1){
+                return true
+            }
+            
+            return canShipBePlacedInLocation(board: board, ship: ship, x: x, i: i+1)
+        } else {
+            return false
         }
     }
     
@@ -189,6 +207,11 @@ struct Board {
         
         if (randomNumberBetween0And1 < DifficultyProbabilities[level]!){
             position = Int.random(in: 0..<occupiedPositions.count)
+            
+            if(board[position].destroyed == true) {
+                return AITakeTurn(board: board, level: level)
+            }
+            
             return strike(x: occupiedPositions[position].x, y: occupiedPositions[position].y, board: board, turn: Player.AI)
         }else{
             if(avaliablePositions.count < 1){
@@ -196,6 +219,11 @@ struct Board {
             }
             
             position = Int.random(in: 0..<avaliablePositions.count)
+            
+            if(board[position].destroyed == true) {
+                return AITakeTurn(board: board, level: level)
+            }
+            
             return strike(x: avaliablePositions[position].x, y: avaliablePositions[position].y, board: board, turn: Player.AI)
         }
     }

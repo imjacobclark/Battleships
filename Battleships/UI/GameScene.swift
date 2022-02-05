@@ -5,6 +5,8 @@ struct MovablePiece {
     var name: String = ""
     var piece: Piece = Piece.Blank
     var occupancy = 0
+    var x = 0
+    var y = 0
 }
 
 class GameScene: SKScene {
@@ -75,7 +77,12 @@ class GameScene: SKScene {
             let name = piece.piece.rawValue + String(piece.number)
             addChild(Boat().generateBoat(x: width, y: Int(view.frame.height) - (width*(12+index))-(Int(view.safeAreaInsets.bottom)), piece: piece.piece, width: width, name: name))
             
-            shipsToBeDeployed[name] = MovablePiece(name: name, piece: piece.piece, occupancy: Ships[piece.piece]!)
+            shipsToBeDeployed[name] = MovablePiece(
+                name: name,
+                piece: piece.piece,
+                occupancy: Ships[piece.piece]!,
+                x: width,
+                y: Int(view.frame.height) - (width*(12+index))-(Int(view.safeAreaInsets.bottom)))
         }
         
         drawBoard()
@@ -147,6 +154,10 @@ class GameScene: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(shipsHaveBeenPlaced) {
+            return
+        }
+        
         let width = getBoxWidth()
         let view = self.view!
         
@@ -159,12 +170,24 @@ class GameScene: SKScene {
             
             let xPositionToMoveTo = Int(location.x) + Int(movableNodeStartX)
             let mapToPrimitiveXPosition = (xPositionToMoveTo - width - (width / 2) ) / width
-            
+                                                
             if let board = Board().placeShip(board: p1Board, ship: Position(x: mapToPrimitiveXPosition, y: mapToPrimitiveYPosition, occupany: shipsToBeDeployed[movableNode!.name!]!.piece, player: Player.P1)) {
                 p1Board = board
                 movableNode?.isHidden = true
+            } else {
+                var ship = shipsToBeDeployed[movableNode!.name!]! as MovablePiece
+
+                movableNode?.removeFromParent()
+
+                addChild(Boat().generateBoat(x: ship.x, y: ship.y, piece: ship.piece, width: ship.x, name: ship.name))
+                
+                shipsToBeDeployed[ship.name] = MovablePiece(
+                    name: ship.name,
+                    piece: ship.piece,
+                    occupancy: ship.occupancy,
+                    x: ship.x,
+                    y:ship.y)
             }
-                        
         }
         
         movableNode = nil
