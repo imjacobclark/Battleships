@@ -48,6 +48,7 @@ struct Position {
     var destroyed = false
     var orientation = Orientation.Horizontal
     var player = Player.None
+    var boatTypeIsVisible = false
 }
 
 struct Board {
@@ -112,7 +113,7 @@ struct Board {
         }
     }
     
-    func canShipBePlacedInLocation(board: Array<Position>, ship: Position, x: Int, i: Int) -> Bool {        
+    func canShipBePlacedInLocation(board: Array<Position>, ship: Position, x: Int, i: Int) -> Bool {
         let position = board[x+i]
         
         if(position.occupany == Piece.Blank){

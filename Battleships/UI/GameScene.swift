@@ -213,9 +213,81 @@ class GameScene: SKScene {
         redrawBoard()
     }
     
+    func displayDestoyedPatrolBoats(){
+        let nonBlankPieces = aiBoard.filter { position in
+            position.occupany != Piece.Blank && position.destroyed == true
+        }
+        
+        let patrolBoats = nonBlankPieces.filter { position in
+            position.occupany == Piece.PatrolBoat
+        }
+        
+        if(patrolBoats.count > 1 ){
+            let sortedPatrolBoats = patrolBoats.sorted { a, b in
+                a.x < b.x
+            }
+            
+            if(sortedPatrolBoats[0].x+1 == sortedPatrolBoats[1].x){
+                aiBoard = aiBoard.map { position in
+                    var position = position
+                    if(position.x == sortedPatrolBoats[0].x) {
+                        position.boatTypeIsVisible = true
+                    }
+                    
+                    if(position.x == sortedPatrolBoats[1].x) {
+                        position.boatTypeIsVisible = true
+                    }
+                    
+                    return position
+                }
+            }
+        }
+        
+        if(patrolBoats.count == 4){
+            let sortedPatrolBoats = patrolBoats.sorted { a, b in
+                a.x < b.x
+            }
+            
+            if(sortedPatrolBoats[2].x+1 == sortedPatrolBoats[3].x){
+                aiBoard = aiBoard.map { position in
+                    var position = position
+                    if(position.x == sortedPatrolBoats[2].x) {
+                        position.boatTypeIsVisible = true
+                    }
+                    
+                    if(position.x == sortedPatrolBoats[3].x) {
+                        position.boatTypeIsVisible = true
+                    }
+                    
+                    return position
+                }
+            }
+        }
+    }
+    
+    func displayDestroyedShips(piece: Piece){
+        let nonBlankPieces = aiBoard.filter { position in
+            position.occupany != Piece.Blank && position.destroyed == true
+        }
+        
+        if(nonBlankPieces.filter { position in
+            position.occupany == piece
+        }.count == Ships[piece]){
+            aiBoard = aiBoard.enumerated().map { (index, position) -> Position in
+                var position = position
+                
+                if(position.occupany == piece){
+                    position.boatTypeIsVisible = true
+                }
+                
+                return position
+            }
+        }
+    }
+    
     override func update(_ currentTime: TimeInterval) {
-
         let isGameWon = Board().isGameWon(p1Board: p1Board, aiBoard: aiBoard)
+        
         if(isGameWon != Optional.none){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc: EndGameViewController = storyboard.instantiateViewController(withIdentifier: "endGameView") as! EndGameViewController
@@ -240,6 +312,12 @@ class GameScene: SKScene {
         }
         
         p1Board = turnSystem.AITakeTurn(currentTime: currentTime, p1Board: p1Board, difficulty: difficulty, run: run)
+        
+        displayDestroyedShips(piece: Piece.Submarine)
+        displayDestroyedShips(piece: Piece.Destroyer)
+        displayDestroyedShips(piece: Piece.Battleship)
+        displayDestroyedShips(piece: Piece.AircraftCarrier)
+        displayDestoyedPatrolBoats()
         
         redrawBoard()
     }

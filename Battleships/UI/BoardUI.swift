@@ -29,6 +29,8 @@ struct BoardUI {
         
         if(position.destroyed && position.player == Player.P1){
             tile = destroyedTileWithShipBlend(tile: mapTileToSprite(position: position, tile: tile, spriteIndex: spriteIndex))
+        }else if(position.destroyed && position.player == Player.AI && position.boatTypeIsVisible){
+            tile = destroyedTileWithShipBlend(tile: mapTileToSprite(position: position, tile: tile, spriteIndex: spriteIndex))
         }else if(position.destroyed && position.player == Player.AI){
             tile.blendMode = SKBlendMode.alpha
             tile.alpha = 0.5
@@ -39,7 +41,7 @@ struct BoardUI {
             tile.fillColor = SKColor.blue
         }else if(position.occupany != Piece.Blank){
             if(position.player == Player.AI){
-                tile.fillColor = SKColor.blue
+                tile.fillColor = SKColor.systemRed
             }else if(position.player == Player.P1){
                 tile.fillColor = SKColor.white
                 tile = mapTileToSprite(position: position, tile: tile, spriteIndex: spriteIndex)
