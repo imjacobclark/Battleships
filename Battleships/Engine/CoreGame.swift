@@ -79,6 +79,7 @@ struct Board {
         let length = Ships[ship.occupany] ?? 0
 
         if(!self.canShipBePlacedInLocation(board: board, ship: ship, x: index, i: 0)){
+            print("Ship cannot be placed in this location...")
             return Optional.none
         }
                 
@@ -113,15 +114,19 @@ struct Board {
         }
     }
     
-    func canShipBePlacedInLocation(board: Array<Position>, ship: Position, x: Int, i: Int) -> Bool {
+    func canShipBePlacedInLocation(board: Array<Position>, ship: Position, x: Int, i: Int) -> Bool {    
+        if(x+i > board.count) {
+            return false
+        }
+        
         let position = board[x+i]
         
         if(position.occupany == Piece.Blank){
             if(i == Ships[ship.occupany]! - 1){
                 return true
+            } else {
+                return canShipBePlacedInLocation(board: board, ship: ship, x: x, i: i+1)
             }
-            
-            return canShipBePlacedInLocation(board: board, ship: ship, x: x, i: i+1)
         } else {
             return false
         }
@@ -133,16 +138,15 @@ struct Board {
         let avaliablePositions = getAvaliablePositions(board: board)
         
         let position = Int.random(in: 1..<avaliablePositions.count)
-        let orientation = Orientation.Horizontal
         
-        if(position+1 > avaliablePositions.count || position > avaliablePositions.count){
+        if(position+1 == avaliablePositions.count || position > avaliablePositions.count){
             board = placeShipRandomly(board: board, ship: ship)
         }
         
-        let shipCanBePlacedInThisLocation = orientation == Orientation.Horizontal && avaliablePositions[position+1].x == avaliablePositions[position].x+1
+        let boardAfterShipIsPlaced = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship, player: Player.AI))
         
-        if(shipCanBePlacedInThisLocation){
-            board = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship, player: Player.AI))!
+        if let placedBoard = boardAfterShipIsPlaced {
+            board = placedBoard
         } else {
             board = placeShipRandomly(board: board, ship: ship)
         }
@@ -178,6 +182,10 @@ struct Board {
     }
     
     func areAllShipsDestroyedOnBoard(board: Array<Position>) -> Bool {
+        print(board.filter { position in
+            position.occupany != Piece.Blank &&
+            position.destroyed == true
+        }.count)
         return board.filter { position in
             position.occupany != Piece.Blank &&
             position.destroyed == true
@@ -185,6 +193,9 @@ struct Board {
     }
     
     func isGameWon(p1Board: Array<Position>, aiBoard: Array<Position>) -> Optional<Player> {
+        print("ai", areAllShipsDestroyedOnBoard(board: aiBoard))
+        print("p1", areAllShipsDestroyedOnBoard(board: p1Board))
+        
         if(areAllShipsDestroyedOnBoard(board: aiBoard)) {
             return Optional.some(Player.P1)
         }else if(areAllShipsDestroyedOnBoard(board: p1Board)) {
@@ -200,31 +211,32 @@ struct Board {
         }
         
         let occupiedPositions = getOccupiedPositions(board: board).filter { Position in
-            Position.player != Player.AI
+            Position.player != Player.AI && Position.destroyed == false
         }
                 
         let randomNumberBetween0And1 = Float.random(in: 0..<1)
         var position = 0
-        
+                
         if (randomNumberBetween0And1 < DifficultyProbabilities[level]!){
             position = Int.random(in: 0..<occupiedPositions.count)
             
             if(board[position].destroyed == true) {
+                print("Having to find another number, cos this one is struck....", position)
                 return AITakeTurn(board: board, level: level)
             }
-            
+        
             return strike(x: occupiedPositions[position].x, y: occupiedPositions[position].y, board: board, turn: Player.AI)
         }else{
             if(avaliablePositions.count < 1){
                 return (hit: Optional.none, board: board)
             }
-            
+
             position = Int.random(in: 0..<avaliablePositions.count)
-            
+
             if(board[position].destroyed == true) {
                 return AITakeTurn(board: board, level: level)
             }
-            
+
             return strike(x: avaliablePositions[position].x, y: avaliablePositions[position].y, board: board, turn: Player.AI)
         }
     }

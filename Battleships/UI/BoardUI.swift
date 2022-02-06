@@ -41,7 +41,7 @@ struct BoardUI {
             tile.fillColor = SKColor.blue
         }else if(position.occupany != Piece.Blank){
             if(position.player == Player.AI){
-                tile.fillColor = SKColor.systemRed
+                tile.fillColor = SKColor.red
             }else if(position.player == Player.P1){
                 tile.fillColor = SKColor.white
                 tile = mapTileToSprite(position: position, tile: tile, spriteIndex: spriteIndex)

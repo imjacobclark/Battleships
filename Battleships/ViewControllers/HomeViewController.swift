@@ -7,7 +7,6 @@ class HomeViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("here")
         if (segue.identifier == "Easy") {
             let vc = segue.destination as! GameViewController
             vc.difficulty = Level.Easy
@@ -20,9 +19,7 @@ class HomeViewController: UIViewController {
         
         if (segue.identifier == "Hard") {
             let vc = segue.destination as! GameViewController
-            vc.difficulty = Level.Hard
-            
-            print("here")
+            vc.difficulty = Level.Hard            
         }
     }
 }

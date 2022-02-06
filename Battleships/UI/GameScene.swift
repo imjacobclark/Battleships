@@ -175,7 +175,7 @@ class GameScene: SKScene {
                 p1Board = board
                 movableNode?.isHidden = true
             } else {
-                var ship = shipsToBeDeployed[movableNode!.name!]! as MovablePiece
+                let ship = shipsToBeDeployed[movableNode!.name!]! as MovablePiece
 
                 movableNode?.removeFromParent()
 
@@ -203,6 +203,7 @@ class GameScene: SKScene {
     }
     
     func placeAIShips() {
+        // TODO: Sometimes not all boats are deployed correctly??
         Boat().getStandardPlayableBoats().forEach({ (piece: Piece, number: Int) in
             aiBoard = Board().placeShipRandomly(board: aiBoard, ship: piece)
         })
@@ -287,7 +288,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         let isGameWon = Board().isGameWon(p1Board: p1Board, aiBoard: aiBoard)
-        
+        print(isGameWon)
         if(isGameWon != Optional.none){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc: EndGameViewController = storyboard.instantiateViewController(withIdentifier: "endGameView") as! EndGameViewController
