@@ -288,7 +288,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         let isGameWon = Board().isGameWon(p1Board: p1Board, aiBoard: aiBoard)
-        print(isGameWon)
+
         if(isGameWon != Optional.none){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc: EndGameViewController = storyboard.instantiateViewController(withIdentifier: "endGameView") as! EndGameViewController

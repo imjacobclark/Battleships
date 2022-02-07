@@ -10,7 +10,7 @@ struct TurnSystem {
         var p1Board = p1Board
 
         if(turn == Player.AI){
-//            if(lastRunAt != 0 && lastRunAt + 1.0 <= currentTime){
+            if(lastRunAt != 0 && lastRunAt + 1.0 <= currentTime){
                 if(hasAIMoved == false){
                     let strike = Board().AITakeTurn(board: p1Board, level: difficulty)
                     p1Board = strike.board
@@ -18,14 +18,14 @@ struct TurnSystem {
                     run(SKAction.playSoundFileNamed("missile.mp3", waitForCompletion: false))
     
                     hasAIMoved = true
-//                }
+                }
                 
-//                if(lastRunAt != 0 && lastRunAt + 2.0 <= currentTime){
+                if(lastRunAt != 0 && lastRunAt + 2.0 <= currentTime){
                     turn = Player.P1
 
                     lastRunAt = 0
                     hasAIMoved = false
-//                }
+                }
             }else if (lastRunAt == 0){
                 lastRunAt = currentTime
             }

@@ -79,7 +79,6 @@ struct Board {
         let length = Ships[ship.occupany] ?? 0
 
         if(!self.canShipBePlacedInLocation(board: board, ship: ship, x: index, i: 0)){
-            print("Ship cannot be placed in this location...")
             return Optional.none
         }
                 
@@ -134,15 +133,22 @@ struct Board {
     
     // Only horizontal placement of ships is implemented presently
     func placeShipRandomly(board: Array<Position>, ship: Piece) -> Array<Position> {
+        print("Placing a ", ship)
         var board = board
         let avaliablePositions = getAvaliablePositions(board: board)
         
         let position = Int.random(in: 1..<avaliablePositions.count)
         
-        if(position+1 == avaliablePositions.count || position > avaliablePositions.count){
+        
+        
+        if(
+            position+1 == avaliablePositions.count ||
+            position > avaliablePositions.count ||
+            avaliablePositions[position].x + Ships[ship]! > 10){
             board = placeShipRandomly(board: board, ship: ship)
         }
         
+        print("Placing ", ship, avaliablePositions[position].x, avaliablePositions[position].y)
         let boardAfterShipIsPlaced = placeShip(board: board, ship: Position(x: avaliablePositions[position].x, y: avaliablePositions[position].y, occupany: ship, player: Player.AI))
         
         if let placedBoard = boardAfterShipIsPlaced {
@@ -182,10 +188,6 @@ struct Board {
     }
     
     func areAllShipsDestroyedOnBoard(board: Array<Position>) -> Bool {
-        print(board.filter { position in
-            position.occupany != Piece.Blank &&
-            position.destroyed == true
-        }.count)
         return board.filter { position in
             position.occupany != Piece.Blank &&
             position.destroyed == true
@@ -193,9 +195,6 @@ struct Board {
     }
     
     func isGameWon(p1Board: Array<Position>, aiBoard: Array<Position>) -> Optional<Player> {
-        print("ai", areAllShipsDestroyedOnBoard(board: aiBoard))
-        print("p1", areAllShipsDestroyedOnBoard(board: p1Board))
-        
         if(areAllShipsDestroyedOnBoard(board: aiBoard)) {
             return Optional.some(Player.P1)
         }else if(areAllShipsDestroyedOnBoard(board: p1Board)) {
@@ -221,7 +220,6 @@ struct Board {
             position = Int.random(in: 0..<occupiedPositions.count)
             
             if(board[position].destroyed == true) {
-                print("Having to find another number, cos this one is struck....", position)
                 return AITakeTurn(board: board, level: level)
             }
         
